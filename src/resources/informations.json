@@ -1,0 +1,70 @@
+{
+  "uf": [
+    "RO",
+    "AC",
+    "AM",
+    "RR",
+    "PA",
+    "AP",
+    "TO",
+    "MA",
+    "PI",
+    "CE",
+    "RN",
+    "PB",
+    "PE",
+    "AL",
+    "SE",
+    "BA",
+    "MG",
+    "ES",
+    "RJ",
+    "SP",
+    "PR",
+    "DF"
+  ],
+  "questions": [
+    {
+      "Possui doença no pulmão?": false
+    },
+    {
+      "Possui doença no coração?": false
+    },
+    {
+      "Possui doença nos rins?": false
+    },
+    {
+      "Possui algum problema de saúde mental?": false
+    },
+    {
+      "Possui hipertensão arterial?": false
+    },
+    {
+      "Já sofreu um AVC/Derrma?": false
+    },
+    {
+      "Já sofreu um infarto?": false
+    },
+    {
+      "Tem ou teve câncer?": false
+    },
+    {
+      "Está com hanseníase?": false
+    },
+    {
+      "Está com tuberculose?": false
+    },
+    {
+      "Tem diabetes?": false
+    },
+    {
+      "É fumante?": false
+    },
+    {
+      "Faz uso de Álcool?": false
+    },
+    {
+      "Está acamada?": false
+    }
+  ]
+}
