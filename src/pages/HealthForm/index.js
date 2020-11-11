@@ -1,11 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import {StatusBar, ScrollView} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import RadioChoice from '../../components/RadioChoice';
-
-import informations from '../../resources/informations.json';
 
 import {useForm} from '../../hooks/form';
 
@@ -21,10 +19,20 @@ import {
   NextButton,
   TextNextButton,
 } from './styles';
+import api from '../../services/api';
 
 function HealthForm() {
+  const [comorbidities, setComorbidities] = useState([]);
   const navigation = useNavigation();
-  const {handleSubmitHealthForm, healthFormData} = useForm();
+  const {handleSubmitHealthForm} = useForm();
+
+  useEffect(() => {
+    async function loadData() {
+      const response = await api.get('comorbidities');
+      setComorbidities(response.data);
+    }
+    loadData();
+  });
 
   const handleSelected = useCallback(
     (data) => {
@@ -36,7 +44,7 @@ function HealthForm() {
   return (
     <>
       <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
-      <ScrollView>
+      <ScrollView style={{flex: 1}}>
         <Container>
           <Header>
             <HeaderWrapper>
@@ -58,15 +66,16 @@ function HealthForm() {
               <TextComplements>Não</TextComplements>
             </Complements>
 
-            {informations.questions.map((question) => (
-              <RadioChoice
-                question={Object.keys(question)[0]}
-                key={Object.keys(question)[0]}
-                selected={handleSelected}
-              />
-            ))}
+            {comorbidities &&
+              comorbidities.map((comorbidity) => (
+                <RadioChoice
+                  question={comorbidity.question}
+                  key={comorbidity.id}
+                  comorbidity_id={comorbidity.id}
+                  selected={handleSelected}
+                />
+              ))}
             <NextButton onPress={() => navigation.navigate('AddressForm')}>
-              {/* <NextButton onPress={() => console.log(healthFormData)}> */}
               <TextNextButton>Próximo</TextNextButton>
             </NextButton>
           </Content>

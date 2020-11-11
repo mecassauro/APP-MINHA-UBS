@@ -44,8 +44,9 @@ const pickerSelectStyles = StyleSheet.create({
     width: '100%',
     borderWidth: 0.5,
     borderColor: '#dfdfdf',
+    paddingHorizontal: 10,
     borderRadius: 8,
-    color: 'black',
+    color: '#4F4F4F',
     paddingRight: 30, // to ensure the text is never behind the icon
   },
 });

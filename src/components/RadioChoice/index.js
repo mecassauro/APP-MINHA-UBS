@@ -2,17 +2,16 @@ import React, {useState, useCallback} from 'react';
 import {RadioButton} from 'react-native-paper';
 import {Container, Question, Alternatives} from './styles';
 
-function RadioChoice({question, selected}) {
+function RadioChoice({question, selected, comorbidity_id}) {
   const [checked, setChecked] = useState(false);
 
   const toggleChoice = useCallback(
     (value) => {
+      console.log(comorbidity_id);
       setChecked(value);
-      const data = {};
-      data[question] = value;
-      selected(data);
+      selected({comorbidity_id, value});
     },
-    [question, selected],
+    [selected, comorbidity_id],
   );
 
   return (

@@ -4,7 +4,8 @@ const FormContext = createContext();
 
 function FormProvider({children}) {
   const [personalFormData, setPersonalFormData] = useState({});
-  const [healthFormData, setHealthFormData] = useState({});
+  const [healthFormData, setHealthFormData] = useState([]);
+  const [addressForm, setAddressForm] = useState({});
 
   const handleSubmitPersonalForm = useCallback(
     (data) => {
@@ -14,12 +15,24 @@ function FormProvider({children}) {
   );
 
   const handleSubmitHealthForm = useCallback(
-    (question) => {
-      console.log(question);
-      setHealthFormData({...healthFormData, ...question});
+    (data) => {
+      const {comorbidity_id, value} = data;
+      if (!value) {
+        const newList = healthFormData.filter((id) => id !== comorbidity_id);
+        setHealthFormData(newList);
+      } else {
+        if (!healthFormData.includes(comorbidity_id)) {
+          setHealthFormData([...healthFormData, comorbidity_id]);
+        }
+      }
     },
     [setHealthFormData, healthFormData],
   );
+
+  const handleSubmitAddressForm = useCallback((data) => {
+    console.log(data);
+    setAddressForm(data);
+  }, []);
 
   return (
     <FormContext.Provider
@@ -28,6 +41,8 @@ function FormProvider({children}) {
         handleSubmitPersonalForm,
         healthFormData,
         handleSubmitHealthForm,
+        addressForm,
+        handleSubmitAddressForm,
       }}>
       {children}
     </FormContext.Provider>

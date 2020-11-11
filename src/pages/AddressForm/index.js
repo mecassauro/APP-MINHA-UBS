@@ -4,11 +4,13 @@ import {StatusBar, ScrollView, PermissionsAndroid} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
+
 import {Form} from '@unform/mobile';
 import axios from 'axios';
 import * as Yup from 'yup';
 
 import InputRegister from '../../components/InputRegister';
+import InputMask from '../../components/InputMask';
 import InputSelected from '../../components/InputSelected';
 import Selector from '../../components/Selector';
 
@@ -31,10 +33,12 @@ import {
 function AddressForm() {
   const [homeStatus, setHomeStatus] = useState('');
   const [selectedUF, setSelectedUF] = useState('');
-
+  const navigation = useNavigation();
   const formRef = useRef();
+  const {handleSubmitAddressForm, healthFormData} = useForm();
 
   useEffect(() => {
+    console.log(healthFormData);
     try {
       async function getLocationPermission() {
         const response = await PermissionsAndroid.request(
@@ -48,11 +52,10 @@ function AddressForm() {
         );
         return response;
       }
-
-      const granted = getLocationPermission();
       Geolocation.getCurrentPosition(({coords}) =>
         console.log(coords.latitude, coords.longitude),
       );
+      const granted = getLocationPermission();
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         Geolocation.getCurrentPosition(({coords}) =>
           console.log(coords.latitude, coords.longitude),
@@ -61,9 +64,10 @@ function AddressForm() {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [healthFormData]);
 
   const handleRequestCEP = useCallback(async (code) => {
+    console.log(code);
     if (code.length === 8) {
       try {
         const {data} = await axios.get(
@@ -71,30 +75,42 @@ function AddressForm() {
         );
         console.log(data);
         setSelectedUF((value) => data.uf);
+        formRef.current.setData({
+          address: data.logradouro,
+          city: data.localidade,
+          neighborhood: data.bairro,
+        });
       } catch (error) {
         console.log(error);
       }
     }
   }, []);
 
-  const handleSubmit = useCallback(async (data) => {
-    try {
-      const schema = Yup.object().shape({
-        zip_code: Yup.string().required(),
-        city: Yup.string().required(),
-        address: Yup.string().required(),
-        home: Yup.string().required(),
-      });
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        const schema = Yup.object().shape({
+          zip_code: Yup.string().required(),
+          city: Yup.string().required(),
+          address: Yup.string().required(),
+          home: Yup.string().required(),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      // TODO: Salvar no contexto e enviar para a home
-    } catch (error) {}
-  }, []);
-
-  const navigation = useNavigation();
+        // TODO: Salvar no contexto e enviar para a home
+        handleSubmitAddressForm({
+          ...data,
+          home_status: homeStatus,
+          state: selectedUF,
+        });
+        navigation.navigate('Dependents');
+      } catch (error) {}
+    },
+    [handleSubmitAddressForm, homeStatus, selectedUF, navigation],
+  );
 
   return (
     <>
@@ -109,7 +125,6 @@ function AddressForm() {
                 size={24}
                 color="#FAFAFA"
               />
-              <Feather name="log-in" size={24} color="#FAFAFA" />
             </HeaderWrapper>
 
             <HeaderTitle>Preencha seus dados</HeaderTitle>
@@ -117,12 +132,13 @@ function AddressForm() {
           <Content>
             <Title>Endereço</Title>
             <Form ref={formRef} onSubmit={handleSubmit}>
-              <InputRegister
+              <InputMask
+                type={'zip-code'}
                 title="CEP"
-                maxLength={9}
-                placeholder="Ex: 00000000"
+                placeholder="Ex: 00000-000"
                 keyboardType="numeric"
                 name="zip_code"
+                handleRequestCEP={handleRequestCEP}
               />
 
               <City>
@@ -130,6 +146,11 @@ function AddressForm() {
                   title="Cidade"
                   placeholder="Ex: Samambaia"
                   name="city"
+                />
+                <InputRegister
+                  title="Bairro"
+                  placeholder="Ex: Asa Norte"
+                  name="neighborhood"
                 />
                 <InputRegister
                   title="Endereço"
