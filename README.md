@@ -18,21 +18,27 @@ Aplicativo do projeto SiMAPS. Tem como público alvo a comunidade do DF.
 
 ## Rodando da aplicação
 
-1) Instalação do React Native, disponível [aqui] (https://reactnative.dev/docs/environment-setup)
+1) Instalação do React Native, disponível [aqui](https://reactnative.dev/docs/environment-setup)
 
-2) Clone o repositório:
+2) Instalação do Yarn, disponível [aqui](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
+
+3) Clone o repositório:
 
     ```
     git clone https://github.com/simaps-ubs/simaps-app.git
     ```
 
-3) Instale as dependências:
+4) Instale as dependências:
   
     ```
-    npm install
+    yarn install
     ``` 
+5) Inicie a aplicação:
 
-4) Rode o aplicativo com o emulador de sua preferência.
+   ```
+   yarn start
+   ``` 
+5) Rode o aplicativo com o emulador de sua preferência.
 
 ## Análise estática do código
 
@@ -41,17 +47,16 @@ Aplicativo do projeto SiMAPS. Tem como público alvo a comunidade do DF.
  ## Como contribuir com o projeto?
 
  <details><summary><b>Contribuição</b></summary>
- 1. <a href="https://github.com/mecassauro/RADAR-frontend/blob/master/docs/CONTRIBUTING.md">Guia de Contribuição</a>
+ 1. <a href="https://github.com/simaps-ubs/simaps-app/blob/master/docs/CONTRIBUTING.md">Guia de Contribuição</a>
  </details>
 
 <details><summary><b>Código de Conduta</b></summary>
-1. <a href="https://github.com/mecassauro/RADAR-frontend/blob/master/docs/CODE_OF_CONDUCT.md">Código de Conduta</a>
+1. <a href="https://github.com/simaps-ubs/simaps-app/blob/master/docs/CODE_OF_CONDUCT.md">Código de Conduta</a>
 </details>
 
 <details><summary><b>Políticas de Contribuição</b></summary>
-1. <a href="https://github.com/mecassauro/docs/blob/master/docs/gcs.md">Política de branchs/commits/</a>
+1. <a href="https://github.com/simaps-ubs/docs/blob/master/docs/gcs.md">Política de branchs/commits/</a>
 </details>
-
 
 
 
