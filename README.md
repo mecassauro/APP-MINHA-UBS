@@ -1,8 +1,6 @@
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=mecassauro_RADAR-frontend&metric=coverage)](https://sonarcloud.io/dashboard?id=mecassauro_RADAR-frontend)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=mecassauro_RADAR-frontend&metric=bugs)](https://sonarcloud.io/dashboard?id=mecassauro_RADAR-frontend)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mecassauro_RADAR-frontend&metric=alert_status)](https://sonarcloud.io/dashboard?id=mecassauro_RADAR-frontend)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mecassauro_RADAR-frontend&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=mecassauro_RADAR-frontend)
-[![Build Status](https://travis-ci.org/mecassauro/RADAR-frontend.svg?branch=master)](https://travis-ci.org/mecassauro/RADAR-frontend)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=simaps-ubs_simaps-app&metric=coverage)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=mecassauro_RADAR-frontend&metric=bugs)](https://sonarcloud.io/dashboard?id=mecassauro_RADAR-frontend)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=simaps-ubs_simaps-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mecassauro_RADAR-frontend&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=mecassauro_RADAR-frontend)
+[![Build Status](https://travis-ci.org/simaps-ubs/simaps-app.svg?branch=master)](https://travis-ci.org/simaps-ubs/simaps-app)
 
 # SiMAPS Aplicativo
 
@@ -42,7 +40,7 @@ Aplicativo do projeto SiMAPS. Tem como público alvo a comunidade do DF.
 
 ## Análise estática do código
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=mecassauro_RADAR-frontend)
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)
 
  ## Como contribuir com o projeto?
 
