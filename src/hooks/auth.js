@@ -6,7 +6,6 @@ import React, {
   useEffect,
 } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import SplashScreen from 'react-native-splash-screen';
 
 import api from '../services/api';
 
@@ -32,7 +31,6 @@ function AuthProvider({children}) {
         setUserData({token: token[1], user: JSON.parse(user[1])});
       }
       setLoading(false);
-      SplashScreen.hide();
     }
     loadStorageData();
   }, []);
