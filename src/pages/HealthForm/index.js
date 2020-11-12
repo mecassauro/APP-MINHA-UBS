@@ -32,7 +32,7 @@ function HealthForm() {
       setComorbidities(response.data);
     }
     loadData();
-  });
+  }, []);
 
   const handleSelected = useCallback(
     (data) => {
@@ -54,7 +54,6 @@ function HealthForm() {
                 size={24}
                 color="#FAFAFA"
               />
-              <Feather name="log-in" size={24} color="#FAFAFA" />
             </HeaderWrapper>
 
             <HeaderTitle>Preencha seus dados </HeaderTitle>

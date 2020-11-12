@@ -35,7 +35,7 @@ function Dependents() {
         <ConfirmButton>
           <TextConfirmButton>Cadastrar</TextConfirmButton>
         </ConfirmButton>
-        <FinishButton onPress={() => navigation.navigate('Home', {show: true})}>
+        <FinishButton onPress={() => navigation.navigate('Home')}>
           <TextFinishButton>Finalizar</TextFinishButton>
         </FinishButton>
       </ButtonArea>

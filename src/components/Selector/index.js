@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {StyleSheet} from 'react-native';
 import RNPicketSelector from 'react-native-picker-select';
 
@@ -12,15 +12,21 @@ function Selector({title, selected, setSelected, items}) {
     color: '#9EA0A4',
   }));
 
+  const handleChange = useCallback(
+    (value) => {
+      setSelected(value);
+    },
+    [setSelected],
+  );
+
   return (
     <Container>
       <Title>{title}</Title>
       <RNPicketSelector
         placeholder={{label: 'Selecionar UF'}}
         useNativeAndroidPickerStyle={false}
-        onValueChange={(value) => setSelected(value)}
+        onValueChange={(value) => handleChange(value)}
         items={formmatedItems}
-        value={selected}
         style={pickerSelectStyles}
       />
     </Container>

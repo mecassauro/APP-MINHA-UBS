@@ -10,7 +10,6 @@ function InputMask({type, icon, handleRequestCEP = undefined, ...rest}) {
   const handleOnChangeText = useCallback(
     (maskedValue, unmaskedValue) => {
       setValue(maskedValue);
-      console.log(unmaskedValue);
       if (handleRequestCEP) {
         handleRequestCEP(unmaskedValue);
       }

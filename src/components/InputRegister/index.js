@@ -6,13 +6,11 @@ import {Container, TextInput, Title} from './styles';
 function InputRegister({title, name, onChangeText, rawValue, ...rest}, ref) {
   const {registerField, fieldName, defaultValue} = useField(name);
   const inputRef = useRef();
-
   const handleOnChange = useCallback(
     (text) => {
       if (inputRef.current) {
         inputRef.current.value = text;
       }
-
       if (onChangeText) {
         onChangeText(text);
       }

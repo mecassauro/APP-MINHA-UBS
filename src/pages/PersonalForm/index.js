@@ -58,7 +58,7 @@ function PersonalForm() {
 
         handleSubmitPersonalForm({
           ...data,
-          sex: selectedGender,
+          sex: selectedGender[0],
           phone_code: data.phone.toString().slice(0, 2),
           phone_number: data.phone.slice(2),
           birth_date: data.birth_date.toISOString().split('T')[0],

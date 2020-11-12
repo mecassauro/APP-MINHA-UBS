@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import {StatusBar} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 import api from '../../services/api';
 import {useAuth} from '../../hooks/auth';
@@ -25,29 +25,13 @@ import {
 } from './styles';
 
 function Home() {
-  const route = useRoute();
-
-  const {user, signOut} = useAuth();
-  const [register, setRegister] = useState(true);
+  const {signOut, register} = useAuth();
   const [notification, setNotification] = useState([]);
   const navigation = useNavigation();
-
-  useEffect(() => {
-    async function loadData() {
-      const response = await api.get(`forms/${user.id}`);
-      console.log(response.data);
-      if (route.params) {
-        setRegister(false);
-      }
-    }
-
-    loadData();
-  }, [user.id, setRegister, route.params]);
-
   return (
     <>
       <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
-      {register ? (
+      {!register ? (
         <Container>
           <Header />
           <Content>
