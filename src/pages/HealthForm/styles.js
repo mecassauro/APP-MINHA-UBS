@@ -28,7 +28,7 @@ export const HeaderTitle = styled.Text`
 
 export const Content = styled.View`
   background-color: #fff;
-  width: 95%;
+  width: 90%;
 
   border-radius: 16px;
   justify-content: center;

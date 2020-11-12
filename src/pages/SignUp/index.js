@@ -2,7 +2,9 @@ import React, {useRef, useCallback} from 'react';
 import {KeyboardAvoidingView, ScrollView, StatusBar} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Yup from 'yup';
+import {ValidationError} from 'yup';
 import {useNavigation} from '@react-navigation/native';
+import api from '../../services/api';
 
 import {
   Container,
@@ -23,30 +25,40 @@ function SignUp() {
 
   const formRef = useRef();
 
-  const handleSubmit = useCallback(async (data) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        username: Yup.string().required('Nome obrigatório'),
-        email: Yup.string()
-          .required('E-mail obrigatório')
-          .email('Digite um email válido'),
-        password: Yup.string()
-          .required('Senha obrigatória')
-          .min(6, 'Mínimo 6 caracteres'),
-        confirm_password: Yup.string().min(6, 'Mínimo 6 caracteres'),
-      });
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Nome obrigatório'),
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um email válido'),
+          password: Yup.string()
+            .required('Senha obrigatória')
+            .min(6, 'Mínimo 6 caracteres'),
+          confirm_password: Yup.string().min(6, 'Mínimo 6 caracteres'),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      const erros = getValidationError(err);
-      console.log(erros);
-      formRef.current?.setErrors(erros);
-    }
-  }, []);
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        await api.post('users', data);
+
+        navigate.goBack();
+      } catch (err) {
+        if (err instanceof ValidationError) {
+          const erros = getValidationError(err);
+          console.log(erros);
+          formRef.current?.setErrors(erros);
+        }
+        console.log(err);
+      }
+    },
+    [navigate],
+  );
 
   return (
     <>
@@ -61,9 +73,9 @@ function SignUp() {
               <Input
                 autoCorrect={false}
                 autoCapitalize="words"
-                placeholder="Nome"
+                placeholder="Nome Completo"
                 icon="user"
-                name="username"
+                name="name"
               />
               <Input
                 keyboardType="email-address"

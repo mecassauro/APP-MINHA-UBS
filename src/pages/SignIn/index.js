@@ -3,6 +3,7 @@ import {StatusBar, KeyboardAvoidingView, ScrollView} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
+import {ValidationError} from 'yup';
 
 import {useAuth} from '../../hooks/auth';
 import getValidationError from '../../utils/getValidationError';
@@ -27,28 +28,34 @@ function SignIn() {
   const {signIn} = useAuth();
   const formRef = useRef();
 
-  const handleSubmit = useCallback(async (data) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('E-mail obrigatório')
-          .email('Digite um email válido'),
-        password: Yup.string()
-          .required('Senha obrigatória')
-          .min(6, 'Mínimo 6 caracteres'),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      const erros = getValidationError(err);
-      console.log(erros);
-      formRef.current?.setErrors(erros);
-    }
-  }, []);
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um email válido'),
+          password: Yup.string()
+            .required('Senha obrigatória')
+            .min(6, 'Mínimo 6 caracteres'),
+        });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+        await signIn(data);
+      } catch (err) {
+        if (err instanceof ValidationError) {
+          const erros = getValidationError(err);
+          console.log(erros);
+          formRef.current?.setErrors(erros);
+        }
+        console.log(err);
+      }
+    },
+    [signIn],
+  );
 
   return (
     <>
@@ -79,7 +86,7 @@ function SignIn() {
                 icon="lock"
                 name="password"
               />
-              <ButtonSubmit onPress={() => navigation.navigate('Home')}>
+              <ButtonSubmit onPress={() => formRef.current?.submitForm()}>
                 <TextButtonSubmit>Entrar</TextButtonSubmit>
               </ButtonSubmit>
             </Form>

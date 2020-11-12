@@ -1,14 +1,17 @@
 import React, {useState, useCallback, useEffect, useRef} from 'react';
-import {StatusBar, ScrollView, PermissionsAndroid} from 'react-native';
+import {StatusBar, ScrollView} from 'react-native';
 
 import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
-import Geolocation from '@react-native-community/geolocation';
+import geolocation from '@react-native-community/geolocation';
+
 import {Form} from '@unform/mobile';
 import axios from 'axios';
 import * as Yup from 'yup';
 
+import getValidationError from '../../utils/getValidationError';
 import InputRegister from '../../components/InputRegister';
+import InputMask from '../../components/InputMask';
 import InputSelected from '../../components/InputSelected';
 import Selector from '../../components/Selector';
 
@@ -31,70 +34,105 @@ import {
 function AddressForm() {
   const [homeStatus, setHomeStatus] = useState('');
   const [selectedUF, setSelectedUF] = useState('');
-
+  const [coord, setCoord] = useState({});
+  const navigation = useNavigation();
   const formRef = useRef();
+  const {handleSubmitAddressForm, healthFormData, handleSubmitData} = useForm();
 
   useEffect(() => {
-    try {
-      async function getLocationPermission() {
-        const response = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: 'Acessar minha localização',
-            message: 'Minha UBS precisa acessar a sua localização',
-            buttonPositive: 'Permitir',
-            buttonNegative: 'Cancelar',
-          },
-        );
-        return response;
-      }
+    console.log(healthFormData);
 
-      const granted = getLocationPermission();
-      Geolocation.getCurrentPosition(({coords}) =>
-        console.log(coords.latitude, coords.longitude),
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        Geolocation.getCurrentPosition(({coords}) =>
-          console.log(coords.latitude, coords.longitude),
-        );
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+    geolocation.getCurrentPosition(
+      ({coords}) => {
+        console.log(coords);
+        setCoord(coords);
+      },
+      (err) => {
+        console.log(err.message);
+      },
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+  }, [healthFormData]);
 
   const handleRequestCEP = useCallback(async (code) => {
+    console.log(code);
     if (code.length === 8) {
       try {
         const {data} = await axios.get(
           `https://viacep.com.br/ws/${code}/json/`,
         );
-        console.log(data);
+
         setSelectedUF((value) => data.uf);
+        formRef.current.setData({
+          city: data.localidade,
+          neighborhood: data.bairro,
+          street: data.logradouro,
+        });
       } catch (error) {
         console.log(error);
       }
     }
   }, []);
 
-  const handleSubmit = useCallback(async (data) => {
-    try {
-      const schema = Yup.object().shape({
-        zip_code: Yup.string().required(),
-        city: Yup.string().required(),
-        address: Yup.string().required(),
-        home: Yup.string().required(),
-      });
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        const schema = Yup.object().shape({
+          zip_code: Yup.string().required(),
+          city: Yup.string().required(),
+          street: Yup.string().required(),
+          house_number: Yup.string().required(),
+        });
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+        console.log('HI');
 
-      // TODO: Salvar no contexto e enviar para a home
-    } catch (error) {}
-  }, []);
+        // TODO: Salvar no contexto e enviar para a home
+        handleSubmitAddressForm({
+          ...data,
+          quantity_per_home: data.quantity_per_home
+            ? Number(data.quantity_per_home)
+            : 0,
+          home_situation: homeStatus,
+          state: selectedUF,
+          lat: coord.latitude.toString(),
+          lng: coord.longitude.toString(),
+        });
 
-  const navigation = useNavigation();
+        await handleSubmitData({
+          ...data,
+          quantity_per_home: data.quantity_per_home
+            ? Number(data.quantity_per_home)
+            : 0,
+          home_situation: homeStatus,
+          state: selectedUF,
+          lat: coord.latitude.toString(),
+          lng: coord.longitude.toString(),
+        });
+
+        if (data.quantity_per_home) {
+          navigation.navigate('Dependents');
+        } else {
+          navigation.navigate('Home');
+        }
+      } catch (err) {
+        console.log(err);
+        const erros = getValidationError(err);
+        console.log(erros);
+        formRef.current?.setErrors(erros);
+      }
+    },
+    [
+      handleSubmitAddressForm,
+      homeStatus,
+      selectedUF,
+      navigation,
+      coord,
+      handleSubmitData,
+    ],
+  );
 
   return (
     <>
@@ -109,7 +147,6 @@ function AddressForm() {
                 size={24}
                 color="#FAFAFA"
               />
-              <Feather name="log-in" size={24} color="#FAFAFA" />
             </HeaderWrapper>
 
             <HeaderTitle>Preencha seus dados</HeaderTitle>
@@ -117,29 +154,35 @@ function AddressForm() {
           <Content>
             <Title>Endereço</Title>
             <Form ref={formRef} onSubmit={handleSubmit}>
-              <InputRegister
+              <InputMask
+                type={'zip-code'}
                 title="CEP"
-                maxLength={9}
-                placeholder="Ex: 00000000"
+                placeholder="Ex: 00000-000"
                 keyboardType="numeric"
                 name="zip_code"
+                handleRequestCEP={handleRequestCEP}
               />
 
               <City>
                 <InputRegister
                   title="Cidade"
-                  placeholder="Ex: Samambaia"
+                  placeholder="Ex: Brasília"
                   name="city"
                 />
                 <InputRegister
+                  title="Bairro"
+                  placeholder="Ex: Asa Norte"
+                  name="neighborhood"
+                />
+                <InputRegister
                   title="Endereço"
-                  placeholder="Ex: Rua 01 São José"
-                  name="address"
+                  placeholder="Ex: SGAN 906"
+                  name="street"
                 />
                 <InputRegister
                   title="Casa"
                   placeholder="Ex: Casa 10"
-                  name="home"
+                  name="house_number"
                 />
                 <Selector
                   title="UF"
