@@ -22,7 +22,7 @@
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "react": "16.13.1",
     "react-native": "0.63.3",
-    "react-native-code-push": "^6.3.0",
+    "react-native-code-push": "^6.4.0",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-masked-text": "^1.13.0",
     "react-native-paper": "^4.2.0",
