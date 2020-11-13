@@ -8,7 +8,7 @@ import {ValidationError} from 'yup';
 import {useAuth} from '../../hooks/auth';
 import getValidationError from '../../utils/getValidationError';
 
-import Logo from '../../assets/image.svg';
+// import Logo from '../../assets/image.svg';
 
 import {
   Container,
@@ -68,9 +68,7 @@ function SignIn() {
           contentContainerStyle={{flex: 1}}
           keyboardShouldPersistTaps="handled">
           <Container>
-            <LogoContainer>
-              <Logo height={300} />
-            </LogoContainer>
+            <LogoContainer>{/* <Logo height={300} /> */}</LogoContainer>
             <Form ref={formRef} onSubmit={handleSubmit}>
               <Input
                 keyboardType="email-address"
