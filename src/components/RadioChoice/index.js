@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import {RadioButton} from 'react-native-paper';
+// import {RadioButton} from 'react-native-paper';
 import {Container, Question, Alternatives} from './styles';
 
 function RadioChoice({question, selected, comorbidity_id}) {
@@ -17,7 +17,7 @@ function RadioChoice({question, selected, comorbidity_id}) {
   return (
     <Container>
       <Question>{question}</Question>
-      <Alternatives>
+      {/* <Alternatives>
         <RadioButton
           color="#00C853"
           value={true}
@@ -30,7 +30,7 @@ function RadioChoice({question, selected, comorbidity_id}) {
           status={checked === false ? 'checked' : 'unchecked'}
           onPress={() => toggleChoice(false)}
         />
-      </Alternatives>
+      </Alternatives> */}
     </Container>
   );
 }
