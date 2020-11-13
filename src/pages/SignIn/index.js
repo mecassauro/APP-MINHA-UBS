@@ -1,5 +1,5 @@
 import React, {useRef, useCallback} from 'react';
-import {StatusBar, KeyboardAvoidingView, ScrollView} from 'react-native';
+import {StatusBar, KeyboardAvoidingView, ScrollView, Image} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
@@ -8,7 +8,7 @@ import {ValidationError} from 'yup';
 import {useAuth} from '../../hooks/auth';
 import getValidationError from '../../utils/getValidationError';
 
-// import Logo from '../../assets/image.svg';
+import Logo from '../../assets/img/logo.png';
 
 import {
   Container,
@@ -68,7 +68,9 @@ function SignIn() {
           contentContainerStyle={{flex: 1}}
           keyboardShouldPersistTaps="handled">
           <Container>
-            <LogoContainer>{/* <Logo height={300} /> */}</LogoContainer>
+            <LogoContainer>
+              <Image source={Logo} style={{height: 380, width: 360}} />
+            </LogoContainer>
             <Form ref={formRef} onSubmit={handleSubmit}>
               <Input
                 keyboardType="email-address"
