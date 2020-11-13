@@ -6,20 +6,20 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StatusBar} from 'react-native';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
-// import codePush from 'react-native-code-push';
-// import SplashScreen from 'react-native-splash-screen';
+import codePush from 'react-native-code-push';
+import SplashScreen from 'react-native-splash-screen';
 
 import Routes from './routes';
 import AppProvider from './hooks';
 
 const App = () => {
-  // useEffect(() => {
-  //   SplashScreen.hide();
-  // }, []);
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <NavigationContainer>
       <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
@@ -32,7 +32,7 @@ const App = () => {
   );
 };
 
-// export default codePush({
-//   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-// })(App);
-export default App;
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+})(App);
+// export default App;

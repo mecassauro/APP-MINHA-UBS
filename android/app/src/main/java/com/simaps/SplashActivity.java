@@ -1,4 +1,4 @@
-package com.simaps;
+package com.simaps; 
 
 import android.content.Intent;
 import android.os.Bundle;
