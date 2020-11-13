@@ -1,8 +1,6 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import Checklist from '../../assets/checklist.svg';
-
 import {
   Container,
   Header,
@@ -23,7 +21,6 @@ function Dependents() {
     <Container>
       <Header />
       <Content>
-        <Checklist />
         <Title>Dependentes</Title>
         <Description>
           Há pessoas que moram junto com você, deseja fazer o cadastro da ficha

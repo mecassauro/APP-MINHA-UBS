@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import {StatusBar} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import api from '../../services/api';
 import {useAuth} from '../../hooks/auth';
-import ImgQuestion from '../../assets/question.svg';
 
 import Notification from '../../components/Notification';
 
@@ -35,7 +33,6 @@ function Home() {
         <Container>
           <Header />
           <Content>
-            <ImgQuestion />
             <Title>Você ainda não tem o cadastro em uma UBS?</Title>
             <SubTitle>
               Faça agora mesmo o seu cadastro e encontre a sua UBS
