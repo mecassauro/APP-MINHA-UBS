@@ -21,9 +21,9 @@ function Input({name, icon, ...rest}) {
   }, [fieldName, registerField]);
 
   return (
-    <Container>
+    <Container style={{elevation: 3}}>
       <Icon>
-        <Feather name={icon} color="#fff" size={24} />
+        <Feather name={icon} color="#9EA0A7" size={24} />
       </Icon>
       <TextInput
         ref={inputRef}

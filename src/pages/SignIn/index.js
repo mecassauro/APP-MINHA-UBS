@@ -1,6 +1,5 @@
 import React, {useRef, useCallback} from 'react';
 import {StatusBar, KeyboardAvoidingView, ScrollView, Image} from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import {ValidationError} from 'yup';
@@ -8,14 +7,22 @@ import {ValidationError} from 'yup';
 import {useAuth} from '../../hooks/auth';
 import getValidationError from '../../utils/getValidationError';
 
-import Logo from '../../assets/img/logo.png';
+import CurveSVG from '../../svg/CurveSVG';
+
+import Logo from '../../assets/img/logoUBS.png';
 
 import {
   Container,
-  LogoContainer,
+  Content,
+  Header,
+  Title,
+  SubTitle,
   Form,
+  TitleForm,
   ButtonSubmit,
   TextButtonSubmit,
+  Forgot,
+  TextForgot,
   CreateAccount,
   TextCreateAccount,
 } from './styles';
@@ -59,44 +66,50 @@ function SignIn() {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" backgroundColor="#eff3f9" />
-      <KeyboardAvoidingView
-        style={{flex: 1}}
-        keyboardVerticalOffset={0}
-        enabled>
+      <StatusBar barStyle="light-content" backgroundColor="#0C1EBB" />
+      <KeyboardAvoidingView style={{flex: 1}} enabled>
         <ScrollView
           contentContainerStyle={{flex: 1}}
           keyboardShouldPersistTaps="handled">
           <Container>
-            <LogoContainer>
-              <Image source={Logo} style={{height: 380, width: 360}} />
-            </LogoContainer>
-            <Form ref={formRef} onSubmit={handleSubmit}>
-              <Input
-                keyboardType="email-address"
-                name="email"
-                placeholder="E-mail"
-                autoCapitalize="none"
-                autoCorrect={false}
-                icon="mail"
-              />
-              <Input
-                secureTextEntry
-                placeholder="Senha"
-                icon="lock"
-                name="password"
-              />
-              <ButtonSubmit onPress={() => formRef.current?.submitForm()}>
-                <TextButtonSubmit>Entrar</TextButtonSubmit>
-              </ButtonSubmit>
-            </Form>
+            <CurveSVG />
+            <Content>
+              <Header>
+                <Image source={Logo} />
+                <Title>Minha UBS</Title>
+                <SubTitle>A sua UBS sempre perto de você!</SubTitle>
+              </Header>
+
+              <Form>
+                <TitleForm>LOGIN</TitleForm>
+                <Input
+                  keyboardType="email-address"
+                  placeholder="E-mail"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  icon="mail"
+                  name="email"
+                />
+                <Input
+                  secureTextEntry
+                  placeholder="Senha"
+                  icon="lock"
+                  name="password"
+                />
+                <ButtonSubmit style={{elevation: 3}}>
+                  <TextButtonSubmit>ENTRAR</TextButtonSubmit>
+                </ButtonSubmit>
+                <Forgot>
+                  <TextForgot>Esqueci minha senha</TextForgot>
+                </Forgot>
+              </Form>
+              <CreateAccount onPress={() => navigation.navigate('SignUp')}>
+                <TextCreateAccount>Criar conta</TextCreateAccount>
+              </CreateAccount>
+            </Content>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
-      <CreateAccount onPress={() => navigation.navigate('SignUp')}>
-        <Feather name="log-in" size={24} color="#fff" />
-        <TextCreateAccount>Criar conta</TextCreateAccount>
-      </CreateAccount>
     </>
   );
 }

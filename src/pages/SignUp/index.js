@@ -1,19 +1,26 @@
 import React, {useRef, useCallback} from 'react';
-import {KeyboardAvoidingView, ScrollView, StatusBar} from 'react-native';
+import {KeyboardAvoidingView, ScrollView, StatusBar, Image} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Yup from 'yup';
 import {ValidationError} from 'yup';
 import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
 
+import CurveSVG from '../../svg/CurveSVG';
+
+import Logo from '../../assets/img/logoUBS.png';
+
 import {
   Container,
+  Content,
+  Header,
+  Back,
   Title,
+  SubTitle,
   Form,
+  TitleForm,
   ButtonSubmit,
   TextButtonSubmit,
-  Back,
-  TextBack,
 } from './styles';
 
 import getValidationError from '../../utils/getValidationError';
@@ -21,7 +28,7 @@ import getValidationError from '../../utils/getValidationError';
 import Input from '../../components/Input';
 
 function SignUp() {
-  const navigate = useNavigation();
+  const navigation = useNavigation();
 
   const formRef = useRef();
 
@@ -47,7 +54,7 @@ function SignUp() {
 
         await api.post('users', data);
 
-        navigate.goBack();
+        navigation.goBack();
       } catch (err) {
         if (err instanceof ValidationError) {
           const erros = getValidationError(err);
@@ -57,57 +64,60 @@ function SignUp() {
         console.log(err);
       }
     },
-    [navigate],
+    [navigation],
   );
 
   return (
     <>
-      <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
-      <KeyboardAvoidingView style={{flex: 1}} enabled>
+      <StatusBar barStyle="light-content" backgroundColor="#0C1EBB" />
+
+      <KeyboardAvoidingView style={{flex: 1}} behavior="height" enabled>
         <ScrollView
           contentContainerStyle={{flex: 1}}
           keyboardShouldPersistTaps="handled">
           <Container>
-            <Title>Faça o seu cadastro</Title>
-            <Form ref={formRef} onSubmit={handleSubmit}>
-              <Input
-                autoCorrect={false}
-                autoCapitalize="words"
-                placeholder="Nome Completo"
-                icon="user"
-                name="name"
-              />
-              <Input
-                keyboardType="email-address"
-                placeholder="E-mail"
-                autoCapitalize="none"
-                autoCorrect={false}
-                icon="mail"
-                name="email"
-              />
-              <Input
-                secureTextEntry
-                placeholder="Senha"
-                icon="lock"
-                name="password"
-              />
-              <Input
-                secureTextEntry
-                placeholder="Confirmar senha"
-                icon="lock"
-                name="confirm_password"
-              />
-              <ButtonSubmit onPress={() => formRef.current?.submitForm()}>
-                <TextButtonSubmit>Cadastrar</TextButtonSubmit>
-              </ButtonSubmit>
-            </Form>
+            <CurveSVG />
+            <Content>
+              <Header>
+                <Back onPress={() => navigation.goBack()}>
+                  <Feather name="arrow-left" size={24} color="#fff" />
+                </Back>
+                <Image source={Logo} />
+                <Title>Minha UBS</Title>
+                <SubTitle>A sua UBS sempre perto de você</SubTitle>
+              </Header>
+
+              <Form>
+                <TitleForm>CADASTRAR</TitleForm>
+                <Input
+                  placeholder="Nome"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  icon="user"
+                  name="name"
+                />
+                <Input
+                  keyboardType="email-address"
+                  placeholder="E-mail"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  icon="mail"
+                  name="email"
+                />
+                <Input
+                  secureTextEntry
+                  placeholder="Senha"
+                  icon="lock"
+                  name="password"
+                />
+                <ButtonSubmit style={{elevation: 3}}>
+                  <TextButtonSubmit>CADASTRAR</TextButtonSubmit>
+                </ButtonSubmit>
+              </Form>
+            </Content>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
-      <Back onPress={() => navigate.goBack()}>
-        <Feather name="arrow-left" size={24} color="#fff" />
-        <TextBack>Voltar</TextBack>
-      </Back>
     </>
   );
 }

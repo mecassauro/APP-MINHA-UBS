@@ -1,55 +1,78 @@
 import styled from 'styled-components/native';
 import {Form as Unform} from '@unform/mobile';
-
 import {RectButton} from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
-  align-items: center;
-  justify-content: center;
-  margin: 0px 0px 300px;
+  background-color: #f7f9fc;
 `;
-
-export const LogoContainer = styled.View`
-  background-color: #eff3f9;
-  border-bottom-left-radius: 56px;
-  border-bottom-right-radius: 56px;
+export const Content = styled.View`
+  position: absolute;
+  align-items: center;
+  height: 100%;
   width: 100%;
-  padding-top: 80px;
+  padding: 0 20px;
 `;
 
-export const Form = styled(Unform)`
-  margin: 24px 24px 0;
-`;
-
-export const ButtonSubmit = styled(RectButton)`
-  background-color: #eff3f9;
-  height: 50px;
-  margin: 12px 50px 0;
-  justify-content: center;
+export const Header = styled.View`
   align-items: center;
-  border-radius: 14px;
+  width: 100%;
+  margin-top: 20px;
 `;
-
-export const TextButtonSubmit = styled.Text`
+export const Back = styled(RectButton)`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 5px;
+`;
+export const Title = styled.Text`
+  color: #fff;
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-bottom: 8px;
+`;
+export const SubTitle = styled.Text`
+  color: #d5ddef;
+  font-size: 18px;
+  font-weight: 400;
+`;
+export const Form = styled(Unform)`
+  align-items: center;
+  margin: auto 0;
+`;
+export const TitleForm = styled.Text`
+  margin-bottom: 16px;
   font-size: 24px;
   font-weight: bold;
-  color: #0669b7;
+  color: #f7f9fc;
 `;
-
-export const CreateAccount = styled.TouchableOpacity`
-  background-color: #025ca4;
-  position: absolute;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
-  padding: 16px;
-  flex-direction: row;
-  justify-content: center;
+export const ButtonSubmit = styled(RectButton)`
+  height: 56px;
+  width: 250px;
+  margin-top: 24px;
+  border-radius: 8px;
+  background-color: #fff;
   align-items: center;
+  justify-content: center;
+`;
+export const TextButtonSubmit = styled.Text`
+  color: #2272ec;
+  font-weight: bold;
+  font-size: 20px;
+`;
+export const Forgot = styled.TouchableOpacity`
+  margin-top: 32px;
+`;
+export const TextForgot = styled.Text`
+  font-size: 13px;
+  color: #1532cb;
+`;
+export const CreateAccount = styled.TouchableOpacity`
+  padding-bottom: 20px;
 `;
 export const TextCreateAccount = styled.Text`
-  color: #fff;
-  font-size: 16px;
-  margin-left: 8px;
+  font-size: 14px;
+  color: #8a8d97;
+  font-weight: bold;
 `;

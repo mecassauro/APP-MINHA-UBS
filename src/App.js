@@ -22,9 +22,9 @@ const App = () => {
   }, []);
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
+      <StatusBar backgroundColor="#0C1EBB" barStyle="light-content" />
       <AppProvider>
-        <View style={{backgroundColor: '#0669b7', flex: 1}}>
+        <View style={{backgroundColor: '##F7F9FC', flex: 1}}>
           <Routes />
         </View>
       </AppProvider>

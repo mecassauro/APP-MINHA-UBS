@@ -15,7 +15,7 @@ function AppRoutes() {
     <App.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: {backgroundColor: '#0669b7'},
+        cardStyle: {backgroundColor: '#0C1EBB'},
       }}
       initialRouteName="Home">
       <App.Screen name="Home" component={Home} />
