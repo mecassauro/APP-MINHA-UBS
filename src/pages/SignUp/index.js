@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
 
 import CurveSVG from '../../svg/CurveSVG';
+import {useAlert} from '../../hooks/alert';
 
 import Logo from '../../assets/img/logoUBS.png';
 
@@ -29,7 +30,7 @@ import Input from '../../components/Input';
 
 function SignUp() {
   const navigation = useNavigation();
-
+  const {alert, close} = useAlert();
   const formRef = useRef();
 
   const handleSubmit = useCallback(
@@ -52,19 +53,26 @@ function SignUp() {
           abortEarly: false,
         });
 
+        alert({title: 'loading', type: 'loading'});
         await api.post('users', data);
-
+        close();
         navigation.goBack();
       } catch (err) {
         if (err instanceof ValidationError) {
           const erros = getValidationError(err);
           console.log(erros);
           formRef.current?.setErrors(erros);
+        } else {
+          close();
+          console.log(err.response.data.error);
+          alert({
+            title: 'Erro ao fazer login',
+            message: err.response.data.error,
+          });
         }
-        console.log(err);
       }
     },
-    [navigation],
+    [navigation, alert, close],
   );
 
   return (
@@ -87,7 +95,7 @@ function SignUp() {
                 <SubTitle>A sua UBS sempre perto de você</SubTitle>
               </Header>
 
-              <Form>
+              <Form ref={formRef} onSubmit={handleSubmit}>
                 <TitleForm>CADASTRAR</TitleForm>
                 <Input
                   placeholder="Nome"
@@ -110,7 +118,9 @@ function SignUp() {
                   icon="lock"
                   name="password"
                 />
-                <ButtonSubmit style={{elevation: 3}}>
+                <ButtonSubmit
+                  style={{elevation: 3}}
+                  onPress={() => formRef.current?.submitForm()}>
                   <TextButtonSubmit>CADASTRAR</TextButtonSubmit>
                 </ButtonSubmit>
               </Form>

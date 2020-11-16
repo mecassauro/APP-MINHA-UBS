@@ -1,6 +1,6 @@
 import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
-// import Svg, {Path} from 'react-native-svg';
+import Svg, {Path} from 'react-native-svg';
 
 import {
   Container,
@@ -22,7 +22,7 @@ function Notification({title, description, date, color}) {
         <Description>{description}</Description>
       </Information>
 
-      {/* <Svg
+      <Svg
         width="112"
         height="176"
         viewBox="0 0 112 173"
@@ -32,7 +32,7 @@ function Notification({title, description, date, color}) {
           d="M5.99907 0H103.999C108.417 0 111.999 3.58172 111.999 8V165C111.999 169.418 108.417 173 103.999 173H5.99907C-16.0006 94.9999 42.9996 74.5 5.99907 0Z"
           fill={color}
         />
-      </Svg> */}
+      </Svg>
       {date && (
         <DateArea>
           <TextDateArea>Até</TextDateArea>

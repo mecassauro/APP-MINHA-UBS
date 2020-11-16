@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import {ValidationError} from 'yup';
 
 import {useAuth} from '../../hooks/auth';
+import {useAlert} from '../../hooks/alert';
 import getValidationError from '../../utils/getValidationError';
 
 import CurveSVG from '../../svg/CurveSVG';
@@ -33,6 +34,7 @@ function SignIn() {
   const navigation = useNavigation();
 
   const {signIn} = useAuth();
+  const {alert, close} = useAlert();
   const formRef = useRef();
 
   const handleSubmit = useCallback(
@@ -51,22 +53,32 @@ function SignIn() {
         await schema.validate(data, {
           abortEarly: false,
         });
+
+        alert({title: 'loading', type: 'loading'});
         await signIn(data);
+        close();
       } catch (err) {
         if (err instanceof ValidationError) {
           const erros = getValidationError(err);
           console.log(erros);
           formRef.current?.setErrors(erros);
+        } else {
+          close();
+          console.log(err.response.data.error);
+          alert({
+            title: 'Erro ao fazer login',
+            message: err.response.data.error,
+          });
         }
-        console.log(err);
       }
     },
-    [signIn],
+    [signIn, alert, close],
   );
 
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#0C1EBB" />
+
       <KeyboardAvoidingView style={{flex: 1}} enabled>
         <ScrollView
           contentContainerStyle={{flex: 1}}
@@ -80,7 +92,7 @@ function SignIn() {
                 <SubTitle>A sua UBS sempre perto de você!</SubTitle>
               </Header>
 
-              <Form>
+              <Form ref={formRef} onSubmit={handleSubmit}>
                 <TitleForm>LOGIN</TitleForm>
                 <Input
                   keyboardType="email-address"
@@ -96,7 +108,9 @@ function SignIn() {
                   icon="lock"
                   name="password"
                 />
-                <ButtonSubmit style={{elevation: 3}}>
+                <ButtonSubmit
+                  style={{elevation: 3}}
+                  onPress={() => formRef.current?.submitForm()}>
                   <TextButtonSubmit>ENTRAR</TextButtonSubmit>
                 </ButtonSubmit>
                 <Forgot>

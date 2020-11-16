@@ -6,7 +6,7 @@ import {useField} from '@unform/core';
 import {Container, TextInput, Icon} from './styles';
 
 function Input({name, icon, ...rest}) {
-  const {registerField, fieldName, defaultValue = ''} = useField(name);
+  const {registerField, fieldName, defaultValue = '', error} = useField(name);
   const inputRef = useRef();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function Input({name, icon, ...rest}) {
   }, [fieldName, registerField]);
 
   return (
-    <Container style={{elevation: 3}}>
+    <Container isErrored={!!error} style={{elevation: 3}}>
       <Icon>
         <Feather name={icon} color="#9EA0A7" size={24} />
       </Icon>
