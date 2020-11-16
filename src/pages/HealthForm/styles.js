@@ -3,38 +3,17 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #eff3f9;
-  align-items: center;
-`;
-
-export const Header = styled.View`
-  background-color: #0669b7;
-  height: 250px;
-  width: 100%;
-  padding: 30px 20px 0px;
-`;
-
-export const HeaderWrapper = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 16px;
-`;
-
-export const HeaderTitle = styled.Text`
-  font-size: 36px;
-  color: #eff3f9;
-  width: 280px;
+  background-color: #f7f9fc;
+  height: 100%;
 `;
 
 export const Content = styled.View`
-  background-color: #fff;
-  width: 90%;
+  width: 100%;
 
   border-radius: 16px;
   justify-content: center;
   padding: 20px;
   position: relative;
-  top: -75px;
 `;
 
 export const Title = styled.Text`

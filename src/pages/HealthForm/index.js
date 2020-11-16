@@ -1,17 +1,15 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import Feather from 'react-native-vector-icons/Feather';
-import {StatusBar, ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import RadioChoice from '../../components/RadioChoice';
+import Header from '../../components/Header';
 
 import {useForm} from '../../hooks/form';
+import {useAlert} from '../../hooks/alert';
 
 import {
   Container,
-  Header,
-  HeaderWrapper,
-  HeaderTitle,
   Content,
   Title,
   Complements,
@@ -25,14 +23,18 @@ function HealthForm() {
   const [comorbidities, setComorbidities] = useState([]);
   const navigation = useNavigation();
   const {handleSubmitHealthForm} = useForm();
+  const {alert, close} = useAlert();
 
   useEffect(() => {
     async function loadData() {
       const response = await api.get('comorbidities');
       setComorbidities(response.data);
     }
+    console.log('HI');
+    alert({title: 'loading', type: 'loading'});
     loadData();
-  }, []);
+    close();
+  }, [close, alert]);
 
   const handleSelected = useCallback(
     (data) => {
@@ -43,21 +45,9 @@ function HealthForm() {
 
   return (
     <>
-      <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
       <ScrollView style={{flex: 1}}>
         <Container>
-          <Header>
-            <HeaderWrapper>
-              <Feather
-                onPress={() => navigation.goBack()}
-                name="arrow-left"
-                size={24}
-                color="#FAFAFA"
-              />
-            </HeaderWrapper>
-
-            <HeaderTitle>Preencha seus dados </HeaderTitle>
-          </Header>
+          <Header title="Cadastro" arrow />
           <Content>
             <Title>Situação de Saúde</Title>
             <Complements>

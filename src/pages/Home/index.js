@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
-import {StatusBar, Image} from 'react-native';
+import {Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {useAuth} from '../../hooks/auth';
@@ -8,10 +8,9 @@ import {useAuth} from '../../hooks/auth';
 import question from '../../assets/img/question.png';
 
 import Notification from '../../components/Notification';
-
+import Header from '../../components/Header';
 import {
   Container,
-  Header,
   HeaderUser,
   Texts,
   TextHeaderUser,
@@ -30,12 +29,11 @@ function Home() {
   const navigation = useNavigation();
   return (
     <>
-      <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
       {!register ? (
         <Container>
-          <Header />
+          <Header title="Minha UBS" logout />
           <Content>
-            <Image source={question} style={{height: 245, width: 245}} />
+            <Image source={question} style={{height: 220, width: 220}} />
             <Title>Você ainda não tem o cadastro em uma UBS?</Title>
             <SubTitle>
               Faça agora mesmo o seu cadastro e encontre a sua UBS

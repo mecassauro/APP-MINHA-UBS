@@ -10,6 +10,7 @@ import InputRegister from '../../components/InputRegister';
 import InputMask from '../../components/InputMask';
 import InputSelected from '../../components/InputSelected';
 import Selector from '../../components/Selector';
+import Header from '../../components/Header';
 
 import informations from '../../resources/informations.json';
 
@@ -18,9 +19,6 @@ import {useForm} from '../../hooks/form';
 
 import {
   Container,
-  Header,
-  HeaderWrapper,
-  HeaderTitle,
   Content,
   Title,
   City,
@@ -41,6 +39,7 @@ function PersonalForm() {
   const handleSubmit = useCallback(
     async (data) => {
       try {
+        formRef.current?.setErrors({});
         const schema = Yup.object().shape({
           full_name: Yup.string().required(),
           phone: Yup.string().required(),
@@ -86,20 +85,9 @@ function PersonalForm() {
 
   return (
     <>
-      <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
       <ScrollView>
         <Container>
-          <Header>
-            <HeaderWrapper>
-              <Feather
-                onPress={() => navigation.goBack()}
-                name="arrow-left"
-                size={24}
-                color="#FAFAFA"
-              />
-            </HeaderWrapper>
-            <HeaderTitle>Preencha seus dados </HeaderTitle>
-          </Header>
+          <Header title="Cadastro" arrow />
           <Content>
             <Title>Dados Pessoais</Title>
             <Form ref={formRef} onSubmit={handleSubmit}>

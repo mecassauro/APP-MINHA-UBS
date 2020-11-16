@@ -4,7 +4,7 @@ import {useField} from '@unform/core';
 import {Container, TextInput, Title} from './styles';
 
 function InputRegister({title, name, onChangeText, rawValue, ...rest}, ref) {
-  const {registerField, fieldName, defaultValue} = useField(name);
+  const {registerField, fieldName, defaultValue, error} = useField(name);
   const inputRef = useRef();
   const handleOnChange = useCallback(
     (text) => {
@@ -38,6 +38,7 @@ function InputRegister({title, name, onChangeText, rawValue, ...rest}, ref) {
     <Container>
       <Title>{title}</Title>
       <TextInput
+        isErrored={!!error}
         ref={inputRef}
         defaultValue={defaultValue}
         onChangeText={handleOnChange}

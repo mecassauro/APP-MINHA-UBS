@@ -3,16 +3,9 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #eff3f9;
+  background-color: #f7f9fc;
 `;
 
-export const Header = styled.View`
-  background-color: #0669b7;
-  height: 180px;
-  width: 100%;
-  align-items: flex-start;
-  padding: 30px 20px 0px;
-`;
 export const HeaderUser = styled.View`
   background-color: #0669b7;
   height: 120px;
@@ -35,14 +28,9 @@ export const TextUBS = styled.Text`
   margin-top: 4px;
 `;
 export const Content = styled.View`
-  background-color: #fff;
-  margin: 0px 20px;
-  border-radius: 16px;
   justify-content: center;
+  margin: 0 30px;
   align-items: center;
-  padding: 20px;
-  position: relative;
-  top: -75px;
 `;
 export const ContentUser = styled.View`
   margin: 0px 24px;
@@ -54,21 +42,21 @@ export const Title = styled.Text`
   font-size: 24px;
   color: #0669b7;
   font-weight: bold;
-  margin-top: 24px;
+  text-align: center;
 `;
 export const SubTitle = styled.Text`
   font-size: 16px;
-  color: #4f4f4f;
-  margin: 24px 0 32px;
+  color: #838a95;
+  margin: 16px 0 32px;
+  text-align: center;
 `;
 
 export const RegisterButton = styled(RectButton)`
-  background-color: #0669b7;
+  background-color: #0484ea;
   padding: 20px 40px;
   border-radius: 12px;
   width: 250px;
   margin: 0 auto;
-  margin-top: -40px;
 `;
 
 export const TextRegisterButton = styled.Text`

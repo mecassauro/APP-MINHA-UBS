@@ -14,16 +14,15 @@ import InputRegister from '../../components/InputRegister';
 import InputMask from '../../components/InputMask';
 import InputSelected from '../../components/InputSelected';
 import Selector from '../../components/Selector';
+import Header from '../../components/Header';
 
 import {useForm} from '../../hooks/form';
+import {useAlert} from '../../hooks/alert';
 
 import informations from '../../resources/informations.json';
 
 import {
   Container,
-  Header,
-  HeaderWrapper,
-  HeaderTitle,
   Content,
   Title,
   City,
@@ -38,6 +37,7 @@ function AddressForm() {
   const navigation = useNavigation();
   const formRef = useRef();
   const {handleSubmitAddressForm, healthFormData, handleSubmitData} = useForm();
+  const {alert, close} = useAlert();
 
   useEffect(() => {
     console.log(healthFormData);
@@ -54,25 +54,30 @@ function AddressForm() {
     );
   }, [healthFormData]);
 
-  const handleRequestCEP = useCallback(async (code) => {
-    console.log(code);
-    if (code.length === 8) {
-      try {
-        const {data} = await axios.get(
-          `https://viacep.com.br/ws/${code}/json/`,
-        );
+  const handleRequestCEP = useCallback(
+    async (code) => {
+      console.log(code);
+      if (code.length === 8) {
+        try {
+          alert({title: 'loading', type: 'loading'});
+          const {data} = await axios.get(
+            `https://viacep.com.br/ws/${code}/json/`,
+          );
 
-        setSelectedUF((value) => data.uf);
-        formRef.current.setData({
-          city: data.localidade,
-          neighborhood: data.bairro,
-          street: data.logradouro,
-        });
-      } catch (error) {
-        console.log(error);
+          setSelectedUF((value) => data.uf);
+          formRef.current.setData({
+            city: data.localidade,
+            neighborhood: data.bairro,
+            street: data.logradouro,
+          });
+          close();
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
-  }, []);
+    },
+    [alert, close],
+  );
 
   const handleSubmit = useCallback(
     async (data) => {
@@ -139,18 +144,7 @@ function AddressForm() {
       <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
       <ScrollView>
         <Container>
-          <Header>
-            <HeaderWrapper>
-              <Feather
-                onPress={() => navigation.goBack()}
-                name="arrow-left"
-                size={24}
-                color="#FAFAFA"
-              />
-            </HeaderWrapper>
-
-            <HeaderTitle>Preencha seus dados</HeaderTitle>
-          </Header>
+          <Header title="Cadastro" arrow />
           <Content>
             <Title>Endereço</Title>
             <Form ref={formRef} onSubmit={handleSubmit}>

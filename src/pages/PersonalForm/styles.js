@@ -3,17 +3,8 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #eff3f9;
-  align-items: center;
+  background-color: #f7f9fc;
 `;
-
-export const Header = styled.View`
-  background-color: #0669b7;
-  height: 250px;
-  width: 100%;
-  padding: 30px 20px 0px;
-`;
-
 export const HeaderWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -27,14 +18,10 @@ export const HeaderTitle = styled.Text`
 `;
 
 export const Content = styled.View`
-  background-color: #fff;
-  width: 90%;
-
-  border-radius: 16px;
+  width: 100%;
   justify-content: center;
   padding: 20px;
   position: relative;
-  top: -75px;
 `;
 
 export const Title = styled.Text`
