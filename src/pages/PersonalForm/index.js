@@ -1,7 +1,5 @@
 import React, {useState, useCallback, useRef} from 'react';
-import Feather from 'react-native-vector-icons/Feather';
-import {StatusBar, ScrollView} from 'react-native';
-
+import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Form} from '@unform/mobile';
 import * as Yup from 'yup';

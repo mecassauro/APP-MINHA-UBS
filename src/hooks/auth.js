@@ -13,7 +13,6 @@ const AuthContext = createContext();
 
 function AuthProvider({children}) {
   const [userData, setUserData] = useState({});
-  const [register, setRegister] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,10 +21,6 @@ function AuthProvider({children}) {
         '@MinhaUBS:token',
         '@MinhaUBS:user',
       ]);
-      const registerStorage = await AsyncStorage.getItem('@MinhaUBS:register');
-      if (registerStorage) {
-        setRegister(JSON.parse(registerStorage));
-      }
       if (token[1] && user[1]) {
         api.defaults.headers.authorization = `Bearer ${token[1]}`;
         setUserData({token: token[1], user: JSON.parse(user[1])});
@@ -44,16 +39,12 @@ function AuthProvider({children}) {
     const {token, user} = response.data;
     api.defaults.headers.authorization = `Bearer ${token}`;
 
-    const {data} = await api.get(`forms/${user.id}`);
-
     await AsyncStorage.multiSet([
       ['@MinhaUBS:token', token],
       ['@MinhaUBS:user', JSON.stringify(user)],
-      ['@MinhaUBS:register', JSON.stringify(data)],
     ]);
 
     setUserData({token, user});
-    setRegister(data);
   }, []);
 
   const signOut = useCallback(() => {
@@ -64,7 +55,6 @@ function AuthProvider({children}) {
     ]);
 
     setUserData({});
-    setRegister({});
   }, []);
 
   return (
@@ -74,8 +64,6 @@ function AuthProvider({children}) {
         signOut,
         user: userData.user,
         loading,
-        register,
-        setRegister,
       }}>
       {children}
     </AuthContext.Provider>

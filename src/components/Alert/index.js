@@ -23,7 +23,6 @@ export const ModalWithBackdropShowcase = ({
         <Card style={{width: 250}} disabled={true}>
           <Text style={styles.title}>{title}:</Text>
           <Text style={styles.message}>{message}</Text>
-
           <Button onPress={close}>OK!</Button>
         </Card>
       </Modal>

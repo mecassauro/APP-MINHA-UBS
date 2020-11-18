@@ -21,14 +21,14 @@ const App = () => {
     SplashScreen.hide();
   }, []);
   return (
-    <NavigationContainer>
-      <StatusBar backgroundColor="#0C1EBB" barStyle="light-content" />
-      <AppProvider>
-        <View style={{backgroundColor: '##F7F9FC', flex: 1}}>
+    <AppProvider>
+      <NavigationContainer>
+        <StatusBar backgroundColor="#0C1EBB" barStyle="light-content" />
+        <View style={{backgroundColor: '##f7f9fc', flex: 1}}>
           <Routes />
         </View>
-      </AppProvider>
-    </NavigationContainer>
+      </NavigationContainer>
+    </AppProvider>
   );
 };
 

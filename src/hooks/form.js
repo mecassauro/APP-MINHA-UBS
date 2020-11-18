@@ -8,8 +8,10 @@ function FormProvider({children}) {
   const [personalFormData, setPersonalFormData] = useState({});
   const [healthFormData, setHealthFormData] = useState([]);
   const [addressForm, setAddressForm] = useState({});
+  const [allDependents, setAllDependents] = useState([]);
 
-  const {user, setRegister} = useAuth();
+  const {user} = useAuth();
+
   const handleSubmitPersonalForm = useCallback(
     (data) => {
       setPersonalFormData(data);
@@ -46,12 +48,31 @@ function FormProvider({children}) {
         comorbidities: healthFormData,
       };
       console.log(formData);
-
-      const response = await api.post('/forms', formData);
-      setRegister(response.data);
     },
-    [addressForm, personalFormData, healthFormData, user, setRegister],
+    [addressForm, personalFormData, healthFormData, user],
   );
+
+  const addList = useCallback(
+    async (data) => {
+      const submitdata = {
+        provider_user_id: user.id,
+        ...data,
+      };
+
+      setAllDependents([...allDependents, submitdata]);
+    },
+    [user, allDependents],
+  );
+
+  const submitAllDependents = useCallback(async () => {
+    try {
+      allDependents.forEach(async (item) => {
+        await api.post('/forms/dependents', item);
+      });
+    } catch (error) {
+      console.log(error.response.data.error);
+    }
+  }, [allDependents]);
 
   return (
     <FormContext.Provider
@@ -63,6 +84,9 @@ function FormProvider({children}) {
         addressForm,
         handleSubmitAddressForm,
         handleSubmitData,
+        addList,
+        allDependents,
+        submitAllDependents,
       }}>
       {children}
     </FormContext.Provider>

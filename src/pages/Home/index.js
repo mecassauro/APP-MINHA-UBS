@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import Feather from 'react-native-vector-icons/Feather';
+import React, {useEffect, useState} from 'react';
 import {Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -9,6 +8,9 @@ import question from '../../assets/img/question.png';
 
 import Notification from '../../components/Notification';
 import Header from '../../components/Header';
+
+import Logout from '../../assets/icons/Logout';
+
 import {
   Container,
   HeaderUser,
@@ -22,40 +24,33 @@ import {
   RegisterButton,
   TextRegisterButton,
 } from './styles';
+import api from '../../services/api';
 
 function Home() {
-  const {signOut, register} = useAuth();
+  const {signOut, user} = useAuth();
+  const [register, setRegister] = useState({});
   const [notification, setNotification] = useState([]);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    async function loadData() {
+      const {data} = await api.get(`/forms/${user.id}`);
+      setRegister(data);
+      console.log(data);
+    }
+    loadData();
+  }, [user]);
+
   return (
     <>
-      {!register ? (
-        <Container>
-          <Header title="Minha UBS" logout />
-          <Content>
-            <Image source={question} style={{height: 220, width: 220}} />
-            <Title>Você ainda não tem o cadastro em uma UBS?</Title>
-            <SubTitle>
-              Faça agora mesmo o seu cadastro e encontre a sua UBS
-            </SubTitle>
-          </Content>
-          <RegisterButton onPress={() => navigation.navigate('PersonalForm')}>
-            <TextRegisterButton>Faça o seu Cadstro</TextRegisterButton>
-          </RegisterButton>
-        </Container>
-      ) : (
+      {register ? (
         <Container>
           <HeaderUser>
             <Texts>
               <TextHeaderUser>Sua UBS:</TextHeaderUser>
               <TextUBS>Taguatinga, UBS 01</TextUBS>
             </Texts>
-            <Feather
-              onPress={() => signOut()}
-              name="log-in"
-              size={24}
-              color="#FAFAFA"
-            />
+            <Logout onPress={signOut} />
           </HeaderUser>
           <ContentUser>
             <Notification
@@ -82,6 +77,20 @@ function Home() {
               color="#0484EA"
             />
           </ContentUser>
+        </Container>
+      ) : (
+        <Container>
+          <Header title="Minha UBS" logout />
+          <Content>
+            <Image source={question} style={{height: 220, width: 220}} />
+            <Title>Você ainda não tem o cadastro em uma UBS?</Title>
+            <SubTitle>
+              Faça agora mesmo o seu cadastro e encontre a sua UBS
+            </SubTitle>
+          </Content>
+          <RegisterButton onPress={() => navigation.navigate('PersonalForm')}>
+            <TextRegisterButton>Faça o seu Cadstro</TextRegisterButton>
+          </RegisterButton>
         </Container>
       )}
     </>

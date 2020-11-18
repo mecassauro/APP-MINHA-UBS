@@ -22,19 +22,17 @@ import api from '../../services/api';
 function HealthForm() {
   const [comorbidities, setComorbidities] = useState([]);
   const navigation = useNavigation();
-  const {handleSubmitHealthForm} = useForm();
   const {alert, close} = useAlert();
+  const {handleSubmitHealthForm} = useForm();
 
   useEffect(() => {
     async function loadData() {
       const response = await api.get('comorbidities');
       setComorbidities(response.data);
     }
-    console.log('HI');
-    alert({title: 'loading', type: 'loading'});
+
     loadData();
-    close();
-  }, [close, alert]);
+  }, []);
 
   const handleSelected = useCallback(
     (data) => {
@@ -54,7 +52,6 @@ function HealthForm() {
               <TextComplements>Sim</TextComplements>
               <TextComplements>Não</TextComplements>
             </Complements>
-
             {comorbidities &&
               comorbidities.map((comorbidity) => (
                 <RadioChoice

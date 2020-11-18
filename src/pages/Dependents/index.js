@@ -1,9 +1,12 @@
 import React from 'react';
+import {Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Header from '../../components/Header';
+
+import checklist from '../../assets/img/checklist.png';
 
 import {
   Container,
-  Header,
   Content,
   Title,
   Description,
@@ -19,9 +22,10 @@ function Dependents() {
 
   return (
     <Container>
-      <Header />
+      <Header title="Cadastro" />
       <Content>
-        <Title>Dependentes</Title>
+        <Image source={checklist} />
+        <Title>Cadastrar</Title>
         <Description>
           Há pessoas que moram junto com você, deseja fazer o cadastro da ficha
           dos dependentes?
@@ -30,7 +34,10 @@ function Dependents() {
 
       <ButtonArea>
         <ConfirmButton>
-          <TextConfirmButton>Cadastrar</TextConfirmButton>
+          <TextConfirmButton
+            onPress={() => navigation.navigate('DependentsForm')}>
+            Cadastrar
+          </TextConfirmButton>
         </ConfirmButton>
         <FinishButton onPress={() => navigation.navigate('Home')}>
           <TextFinishButton>Finalizar</TextFinishButton>

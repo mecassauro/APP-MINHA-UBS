@@ -7,12 +7,12 @@ export const Container = styled.View`
 `;
 
 export const HeaderUser = styled.View`
-  background-color: #0669b7;
-  height: 120px;
-  width: 100%;
+  height: 80px;
+  background-color: #0c1ebb;
+
   justify-content: space-between;
   flex-direction: row;
-  padding: 40px 20px 0px;
+  padding: 20px 20px;
 `;
 export const Texts = styled.View`
   flex-direction: column;

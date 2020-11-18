@@ -7,6 +7,8 @@ import HealthForm from '../pages/HealthForm';
 import PersonalForm from '../pages/PersonalForm';
 import AddressForm from '../pages/AddressForm';
 import Dependents from '../pages/Dependents';
+import DependentsForm from '../pages/DependentsForm';
+import ListDependents from '../pages/ListDependents';
 
 const App = createStackNavigator();
 
@@ -17,12 +19,14 @@ function AppRoutes() {
         headerShown: false,
         cardStyle: {backgroundColor: '#0C1EBB'},
       }}
-      initialRouteName="Home">
+      initialRouteName="Dependents">
       <App.Screen name="Home" component={Home} />
       <App.Screen name="PersonalForm" component={PersonalForm} />
       <App.Screen name="HealthForm" component={HealthForm} />
       <App.Screen name="AddressForm" component={AddressForm} />
       <App.Screen name="Dependents" component={Dependents} />
+      <App.Screen name="DependentsForm" component={DependentsForm} />
+      <App.Screen name="ListDependents" component={ListDependents} />
     </App.Navigator>
   );
 }

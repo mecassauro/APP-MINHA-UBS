@@ -1,13 +1,13 @@
 import React, {useState, useCallback, useEffect, useRef} from 'react';
 import {StatusBar, ScrollView} from 'react-native';
 
-import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import geolocation from '@react-native-community/geolocation';
 
 import {Form} from '@unform/mobile';
 import axios from 'axios';
 import * as Yup from 'yup';
+import {ValidationError} from 'yup';
 
 import getValidationError from '../../utils/getValidationError';
 import InputRegister from '../../components/InputRegister';
@@ -87,6 +87,7 @@ function AddressForm() {
           city: Yup.string().required(),
           street: Yup.string().required(),
           house_number: Yup.string().required(),
+          neighborhood: Yup.string().required(),
         });
 
         await schema.validate(data, {
@@ -123,10 +124,18 @@ function AddressForm() {
           navigation.navigate('Home');
         }
       } catch (err) {
-        console.log(err);
-        const erros = getValidationError(err);
-        console.log(erros);
-        formRef.current?.setErrors(erros);
+        if (err instanceof ValidationError) {
+          const erros = getValidationError(err);
+          console.log(erros);
+          formRef.current?.setErrors(erros);
+        } else {
+          close();
+          console.log(err.response.data.error);
+          alert({
+            title: 'Erro ao fazer cadastro da ficha',
+            message: err.response.data.error,
+          });
+        }
       }
     },
     [
@@ -136,12 +145,13 @@ function AddressForm() {
       navigation,
       coord,
       handleSubmitData,
+      alert,
+      close,
     ],
   );
 
   return (
     <>
-      <StatusBar backgroundColor="#0669b7" barStyle="light-content" />
       <ScrollView>
         <Container>
           <Header title="Cadastro" arrow />
@@ -198,7 +208,7 @@ function AddressForm() {
               />
 
               <InputRegister
-                title="Quantas pessoas moram na casa?"
+                title="Quantas pessoas a mais moram na casa?"
                 keyboardType="numeric"
                 name="quantity_per_home"
               />

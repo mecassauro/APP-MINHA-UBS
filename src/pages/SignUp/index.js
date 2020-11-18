@@ -66,7 +66,7 @@ function SignUp() {
           close();
           console.log(err.response.data.error);
           alert({
-            title: 'Erro ao fazer login',
+            title: 'Erro ao fazer cadastro',
             message: err.response.data.error,
           });
         }

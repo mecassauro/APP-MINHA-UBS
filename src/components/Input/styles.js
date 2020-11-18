@@ -17,6 +17,7 @@ export const Container = styled.View`
   ${(props) =>
     props.isErrored &&
     css`
+      border-width: 2px;
       border-color: #e41818;
     `}
 `;
@@ -24,6 +25,7 @@ export const Container = styled.View`
 export const TextInput = styled.TextInput`
   flex: 1;
   font-size: 16px;
+  border: none;
 `;
 
 export const Icon = styled.View`
