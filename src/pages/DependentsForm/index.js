@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 
 import InputRegister from '../../components/InputRegister';
 import InputSelected from '../../components/InputSelected';
-import RadioChoice from '../../components/RadioChoice';
+import CheckBox from '../../components/CheckBox';
 import InputMask from '../../components/InputMask';
 import Selector from '../../components/Selector';
 import Header from '../../components/Header';
@@ -17,16 +17,7 @@ import getValidationError from '../../utils/getValidationError';
 import {useForm} from '../../hooks/form';
 import api from '../../services/api';
 
-import {
-  Container,
-  Content,
-  Title,
-  Complements,
-  TextComplements,
-  City,
-  NextButton,
-  TextNextButton,
-} from './styles';
+import {Container, Content, Title, NextButton, TextNextButton} from './styles';
 
 function DependentsForm() {
   const [selectedNationality, setSelectedNationality] = useState('');
@@ -172,19 +163,17 @@ function DependentsForm() {
                     title="Nacionalidade"
                     alternatives={['Brasileiro', 'Naturalizado', 'Estrangeiro']}
                   />
-                  <City>
-                    <InputRegister
-                      title="Cidade de nascimento"
-                      placeholder="Ex: Samambaia"
-                      name="birth_city"
-                    />
-                    <Selector
-                      title="UF"
-                      selected={selectedUF}
-                      setSelected={setSelectedUF}
-                      items={informations.uf}
-                    />
-                  </City>
+                  <InputRegister
+                    title="Cidade de nascimento"
+                    placeholder="Ex: Samambaia"
+                    name="birth_city"
+                  />
+                  <Selector
+                    title="UF"
+                    selected={selectedUF}
+                    setSelected={setSelectedUF}
+                    items={informations.uf}
+                  />
 
                   <InputSelected
                     selected={selectedGender}
@@ -222,13 +211,9 @@ function DependentsForm() {
             ) : (
               <>
                 <Title>Situação de Saúde</Title>
-                <Complements>
-                  <TextComplements>Sim</TextComplements>
-                  <TextComplements>Não</TextComplements>
-                </Complements>
                 {comorbidities &&
                   comorbidities.map((comorbidity) => (
-                    <RadioChoice
+                    <CheckBox
                       question={comorbidity.question}
                       key={comorbidity.id}
                       comorbidity_id={comorbidity.id}

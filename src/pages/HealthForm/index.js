@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
-import RadioChoice from '../../components/RadioChoice';
+import CheckBox from '../../components/CheckBox';
 import Header from '../../components/Header';
 
 import {useForm} from '../../hooks/form';
@@ -12,9 +12,8 @@ import {
   Container,
   Content,
   Title,
-  Complements,
-  TextComplements,
   NextButton,
+  Divider,
   TextNextButton,
 } from './styles';
 import api from '../../services/api';
@@ -27,12 +26,13 @@ function HealthForm() {
 
   useEffect(() => {
     async function loadData() {
+      // alert({title: 'loading', type: 'loading'});
       const response = await api.get('comorbidities');
       setComorbidities(response.data);
+      // close();
     }
-
     loadData();
-  }, []);
+  }, [alert, close]);
 
   const handleSelected = useCallback(
     (data) => {
@@ -48,19 +48,16 @@ function HealthForm() {
           <Header title="Cadastro" arrow />
           <Content>
             <Title>Situação de Saúde</Title>
-            <Complements>
-              <TextComplements>Sim</TextComplements>
-              <TextComplements>Não</TextComplements>
-            </Complements>
             {comorbidities &&
               comorbidities.map((comorbidity) => (
-                <RadioChoice
+                <CheckBox
                   question={comorbidity.question}
                   key={comorbidity.id}
                   comorbidity_id={comorbidity.id}
                   selected={handleSelected}
                 />
               ))}
+            <Divider />
             <NextButton onPress={() => navigation.navigate('AddressForm')}>
               <TextNextButton>Próximo</TextNextButton>
             </NextButton>

@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useAlert} from '../../hooks/alert';
 
 import Header from '../../components/Header';
+import Trash from '../../assets/icons/Trash';
 import {useForm} from '../../hooks/form';
 
 import {
@@ -20,11 +21,11 @@ import {
 function ListDependents() {
   const {alert, close} = useAlert();
   const navigation = useNavigation();
-  const {allDependents, submitAllDependents} = useForm();
+  const {allDependents, submitAllDependents, removeList} = useForm();
 
-  const submitList = useCallback(() => {
+  const submitList = useCallback(async () => {
     alert({title: 'loading', type: 'loading'});
-    submitAllDependents();
+    await submitAllDependents();
     close();
     navigation.reset({
       index: 0,
@@ -35,9 +36,10 @@ function ListDependents() {
   return (
     <Container>
       <Header title="cadastro" />
-      {allDependents.map((dependents) => (
+      {allDependents.map((dependents, index) => (
         <Item key={dependents.name} style={{elevation: 3}}>
-          <Title>{dependents.name}</Title>
+          <Title>{`${index + 1}. ${dependents.name}`}</Title>
+          <Trash onPress={() => removeList(dependents.name)} />
         </Item>
       ))}
 

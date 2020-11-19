@@ -7,6 +7,7 @@ import checklist from '../../assets/img/checklist.png';
 
 import {
   Container,
+  Wrapper,
   Content,
   Title,
   Description,
@@ -23,26 +24,28 @@ function Dependents() {
   return (
     <Container>
       <Header title="Cadastro" />
-      <Content>
-        <Image source={checklist} />
-        <Title>Cadastrar</Title>
-        <Description>
-          Há pessoas que moram junto com você, deseja fazer o cadastro da ficha
-          dos dependentes?
-        </Description>
-      </Content>
+      <Wrapper>
+        <Content>
+          <Image source={checklist} />
+          <Title>Cadastrar</Title>
+          <Description>
+            Há pessoas que moram junto com você, deseja fazer o cadastro da
+            ficha dos dependentes?
+          </Description>
+        </Content>
 
-      <ButtonArea>
-        <ConfirmButton>
-          <TextConfirmButton
-            onPress={() => navigation.navigate('DependentsForm')}>
-            Cadastrar
-          </TextConfirmButton>
-        </ConfirmButton>
-        <FinishButton onPress={() => navigation.navigate('Home')}>
-          <TextFinishButton>Finalizar</TextFinishButton>
-        </FinishButton>
-      </ButtonArea>
+        <ButtonArea>
+          <ConfirmButton>
+            <TextConfirmButton
+              onPress={() => navigation.navigate('DependentsForm')}>
+              Cadastrar
+            </TextConfirmButton>
+          </ConfirmButton>
+          <FinishButton onPress={() => navigation.navigate('Home')}>
+            <TextFinishButton>Finalizar</TextFinishButton>
+          </FinishButton>
+        </ButtonArea>
+      </Wrapper>
     </Container>
   );
 }

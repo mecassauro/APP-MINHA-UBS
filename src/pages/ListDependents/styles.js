@@ -1,4 +1,3 @@
-import {RectButton} from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -11,7 +10,10 @@ export const Item = styled.View`
   margin-top: 10px;
   background-color: #fff;
   border-radius: 8px;
+  flex-direction: row;
+
   justify-content: space-between;
+  align-items: center;
 `;
 export const Title = styled.Text`
   font-size: 16px;

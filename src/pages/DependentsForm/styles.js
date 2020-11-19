@@ -33,22 +33,6 @@ export const Title = styled.Text`
   border-color: #dfdfdf;
 `;
 
-export const Complements = styled.View`
-  flex-direction: row;
-  margin-left: auto;
-  margin-right: 8px;
-`;
-export const TextComplements = styled.Text`
-  font-size: 12px;
-  color: #7a7a7a;
-  margin-left: 18px;
-  font-weight: bold;
-`;
-
-export const City = styled.View`
-  /* flex-direction: row; */
-`;
-
 export const NextButton = styled(RectButton)`
   background-color: #04d361;
   border-radius: 8px;

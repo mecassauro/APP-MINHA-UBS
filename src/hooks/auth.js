@@ -5,10 +5,9 @@ import React, {
   createContext,
   useEffect,
 } from 'react';
+
 import AsyncStorage from '@react-native-community/async-storage';
-
 import api from '../services/api';
-
 const AuthContext = createContext();
 
 function AuthProvider({children}) {
@@ -48,11 +47,7 @@ function AuthProvider({children}) {
   }, []);
 
   const signOut = useCallback(() => {
-    AsyncStorage.multiRemove([
-      '@MinhaUBS:token',
-      '@MinhaUBS:user',
-      '@MinhaUBS:register',
-    ]);
+    AsyncStorage.multiRemove(['@MinhaUBS:token', '@MinhaUBS:user']);
 
     setUserData({});
   }, []);

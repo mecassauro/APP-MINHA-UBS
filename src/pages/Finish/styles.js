@@ -17,10 +17,6 @@ export const HeaderUser = styled.View`
 export const Texts = styled.View`
   flex-direction: column;
 `;
-export const Wrapper = styled.View`
-  justify-content: center;
-  flex: 1;
-`;
 export const TextHeaderUser = styled.Text`
   color: #eff3f9;
   font-size: 13px;
@@ -42,8 +38,13 @@ export const ContentUser = styled.View`
   flex: 1;
 `;
 
+export const Wrapper = styled.View`
+  justify-content: center;
+  flex: 1;
+`;
+
 export const Title = styled.Text`
-  font-size: 24px;
+  font-size: 36px;
   color: #0484ea;
   font-weight: bold;
   text-align: center;
@@ -57,7 +58,8 @@ export const SubTitle = styled.Text`
 
 export const RegisterButton = styled(RectButton)`
   background-color: #0484ea;
-  padding: 20px 40px;
+  padding: 20px 0;
+  align-items: center;
   border-radius: 12px;
   width: 250px;
   margin: 0 auto;

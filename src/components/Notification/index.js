@@ -16,7 +16,7 @@ import {
 
 function Notification({title, description, date, color}) {
   return (
-    <Container>
+    <Container style={{elevation: 3}}>
       <Information>
         <Title>{title}</Title>
         <Description>{description}</Description>
@@ -24,7 +24,7 @@ function Notification({title, description, date, color}) {
 
       <Svg
         width="112"
-        height="176"
+        height="100%"
         viewBox="0 0 112 173"
         fill="none"
         style={{position: 'absolute', right: 0}}>

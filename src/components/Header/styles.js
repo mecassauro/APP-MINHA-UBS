@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
+import LinearGradient from 'react-native-linear-gradient';
 
 import Logout from '../../assets/icons/Logout';
 import ArrowLeft from '../../assets/icons/ArrowLeft';
 
-export const Container = styled.View`
+export const Container = styled(LinearGradient)`
   height: 80px;
   background-color: #0c1ebb;
   justify-content: space-around;

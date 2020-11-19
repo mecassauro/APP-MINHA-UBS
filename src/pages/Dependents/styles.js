@@ -5,6 +5,11 @@ export const Container = styled.View`
   flex: 1;
   background-color: #eff3f9;
 `;
+
+export const Wrapper = styled.View`
+  justify-content: center;
+  flex: 1;
+`;
 export const Content = styled.View`
   margin: 0px 20px;
   justify-content: center;

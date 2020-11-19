@@ -23,23 +23,16 @@ export const Title = styled.Text`
   border-bottom-width: 1px;
   border-color: #dfdfdf;
 `;
-export const Complements = styled.View`
-  flex-direction: row;
-  margin-left: auto;
-  margin-right: 8px;
+export const Divider = styled.View`
+  background-color: #dfdfdf;
+  height: 1px;
+  margin-top: 12px;
 `;
-export const TextComplements = styled.Text`
-  font-size: 12px;
-  color: #7a7a7a;
-  margin-left: 18px;
-  font-weight: bold;
-`;
-
 export const NextButton = styled(RectButton)`
   background-color: #04d361;
   border-radius: 8px;
   padding: 12px 0px;
-  margin: 24px 60px 0px;
+  margin: 16px 60px 0px;
   justify-content: center;
   align-items: center;
 `;

@@ -47,7 +47,8 @@ function FormProvider({children}) {
         ...data,
         comorbidities: healthFormData,
       };
-      console.log(formData);
+      const response = await api.post('/forms', formData);
+      console.log(response.data);
     },
     [addressForm, personalFormData, healthFormData, user],
   );
@@ -56,22 +57,32 @@ function FormProvider({children}) {
     async (data) => {
       const submitdata = {
         provider_user_id: user.id,
+        user_type: 'DEPENDENT',
         ...data,
       };
-
       setAllDependents([...allDependents, submitdata]);
     },
     [user, allDependents],
   );
 
+  const removeList = useCallback(
+    (name) => {
+      const newList = allDependents.filter((item) => item.name !== name);
+      setAllDependents(newList);
+    },
+    [allDependents],
+  );
+
   const submitAllDependents = useCallback(async () => {
     try {
       allDependents.forEach(async (item) => {
+        console.log(item);
         await api.post('/forms/dependents', item);
       });
     } catch (error) {
       console.log(error.response.data.error);
     }
+    setAllDependents([]);
   }, [allDependents]);
 
   return (
@@ -85,6 +96,7 @@ function FormProvider({children}) {
         handleSubmitAddressForm,
         handleSubmitData,
         addList,
+        removeList,
         allDependents,
         submitAllDependents,
       }}>

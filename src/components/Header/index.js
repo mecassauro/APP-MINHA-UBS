@@ -10,7 +10,7 @@ function Header({title, logout, arrow, back}) {
   const navigation = useNavigation();
 
   return (
-    <Container>
+    <Container colors={['#0C1EBB', '#285FF0']}>
       {arrow && <Arrow onPress={() => navigation.goBack()} />}
       <Title>{title}</Title>
       {logout && <Log onPress={() => signOut()} />}
