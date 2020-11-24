@@ -36,7 +36,7 @@ function InputRegister({title, name, onChangeText, rawValue, ...rest}, ref) {
 
   return (
     <Container>
-      <Title>{title}</Title>
+      <Title>{`${title}:`}</Title>
       <TextInput
         isErrored={!!error}
         ref={inputRef}

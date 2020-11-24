@@ -121,7 +121,7 @@ function AddressForm() {
         if (data.quantity_per_home) {
           navigation.navigate('Dependents');
         } else {
-          navigation.navigate('Home');
+          navigation.navigate('Finish');
         }
       } catch (err) {
         if (err instanceof ValidationError) {

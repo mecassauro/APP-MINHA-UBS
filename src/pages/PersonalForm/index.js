@@ -3,6 +3,7 @@ import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Form} from '@unform/mobile';
 import * as Yup from 'yup';
+import {ValidationError} from 'yup';
 
 import InputRegister from '../../components/InputRegister';
 import InputMask from '../../components/InputMask';
@@ -32,6 +33,7 @@ function PersonalForm() {
 
   const navigation = useNavigation();
   const formRef = useRef();
+  const dateRef = useRef();
   const {handleSubmitPersonalForm} = useForm();
 
   const handleSubmit = useCallback(
@@ -66,9 +68,14 @@ function PersonalForm() {
 
         navigation.navigate('HealthForm');
       } catch (err) {
-        const erros = getValidationError(err);
-        console.log(erros);
-        formRef.current?.setErrors(erros);
+        if (err instanceof ValidationError) {
+          const erros = getValidationError(err);
+          console.log(erros);
+          formRef.current?.setErrors(erros);
+        }
+        if (err instanceof RangeError) {
+          formRef.current?.setFieldError('birth_date', 'Data não válida');
+        }
       }
     },
     [

@@ -29,7 +29,7 @@ function ListDependents() {
     close();
     navigation.reset({
       index: 0,
-      routes: [{name: 'Home'}],
+      routes: [{name: 'Finish'}],
     });
   }, [submitAllDependents, alert, close, navigation]);
 

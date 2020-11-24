@@ -41,7 +41,7 @@ function Dependents() {
               Cadastrar
             </TextConfirmButton>
           </ConfirmButton>
-          <FinishButton onPress={() => navigation.navigate('Home')}>
+          <FinishButton onPress={() => navigation.navigate('Finish')}>
             <TextFinishButton>Finalizar</TextFinishButton>
           </FinishButton>
         </ButtonArea>

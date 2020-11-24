@@ -56,7 +56,7 @@ function Home() {
               </SubTitle>
             </Content>
             <RegisterButton onPress={() => navigation.navigate('PersonalForm')}>
-              <TextRegisterButton>Faça o seu Cadstro</TextRegisterButton>
+              <TextRegisterButton>Faça o seu Cadastro</TextRegisterButton>
             </RegisterButton>
           </Wrapper>
         </Container>

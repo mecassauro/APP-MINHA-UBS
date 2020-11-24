@@ -28,6 +28,10 @@ function HealthForm() {
     async function loadData() {
       // alert({title: 'loading', type: 'loading'});
       const response = await api.get('comorbidities');
+      const list = response.data;
+
+      const filteredList = response.data.filter((item) => item.question);
+
       setComorbidities(response.data);
       // close();
     }
