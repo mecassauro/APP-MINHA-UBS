@@ -33,7 +33,6 @@ function PersonalForm() {
 
   const navigation = useNavigation();
   const formRef = useRef();
-  const dateRef = useRef();
   const {handleSubmitPersonalForm} = useForm();
 
   const handleSubmit = useCallback(

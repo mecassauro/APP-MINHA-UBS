@@ -52,6 +52,7 @@ function SignUp() {
         await schema.validate(data, {
           abortEarly: false,
         });
+        Object.assign(data, {user_type: 'COMMUNITY_PERSON'});
 
         alert({title: 'loading', type: 'loading'});
         await api.post('users', data);
