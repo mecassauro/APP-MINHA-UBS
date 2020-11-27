@@ -37,11 +37,16 @@ function Dependents() {
         <ButtonArea>
           <ConfirmButton>
             <TextConfirmButton
-              onPress={() => navigation.navigate('DependentsForm')}>
+              onPress={() =>
+                navigation.reset({index: 0, routes: [{name: 'DependentsForm'}]})
+              }>
               Cadastrar
             </TextConfirmButton>
           </ConfirmButton>
-          <FinishButton onPress={() => navigation.navigate('Finish')}>
+          <FinishButton
+            onPress={() =>
+              navigation.reset({index: 0, routes: [{name: 'Finish'}]})
+            }>
             <TextFinishButton>Finalizar</TextFinishButton>
           </FinishButton>
         </ButtonArea>

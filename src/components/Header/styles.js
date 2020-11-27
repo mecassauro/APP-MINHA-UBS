@@ -5,7 +5,7 @@ import Logout from '../../assets/icons/Logout';
 import ArrowLeft from '../../assets/icons/ArrowLeft';
 
 export const Container = styled(LinearGradient)`
-  height: 80px;
+  height: 60px;
   background-color: #0c1ebb;
   justify-content: space-around;
   align-items: center;
@@ -15,7 +15,6 @@ export const Container = styled(LinearGradient)`
 export const Title = styled.Text`
   color: #ffffff;
   font-size: 24px;
-  font-weight: bold;
 `;
 export const Arrow = styled(ArrowLeft)`
   font-size: 24px;

@@ -3,6 +3,7 @@ import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {Form} from '@unform/mobile';
 import * as Yup from 'yup';
+import {ValidationError} from 'yup';
 
 import InputRegister from '../../components/InputRegister';
 import InputSelected from '../../components/InputSelected';
@@ -17,7 +18,14 @@ import getValidationError from '../../utils/getValidationError';
 import {useForm} from '../../hooks/form';
 import api from '../../services/api';
 
-import {Container, Content, Title, NextButton, TextNextButton} from './styles';
+import {
+  Container,
+  Content,
+  Title,
+  NextButton,
+  TextNextButton,
+  Divider,
+} from './styles';
 
 function DependentsForm() {
   const [selectedNationality, setSelectedNationality] = useState('');
@@ -86,9 +94,14 @@ function DependentsForm() {
         });
         setPage(1);
       } catch (err) {
-        const erros = getValidationError(err);
-        console.log(erros);
-        formRef.current?.setErrors(erros);
+        if (err instanceof ValidationError) {
+          const erros = getValidationError(err);
+          console.log(erros);
+          formRef.current?.setErrors(erros);
+        }
+        if (err instanceof RangeError) {
+          formRef.current?.setFieldError('birth_date', 'Data não válida');
+        }
       }
     },
     [
@@ -114,16 +127,16 @@ function DependentsForm() {
 
   return (
     <>
-      <ScrollView>
-        <Container>
-          <Header title="Cadastro" arrow />
-          <Content>
-            {!page ? (
-              <>
-                <Title>Dados Pessoais</Title>
+      {!page ? (
+        <>
+          <Header title="Cadastro" />
+          <ScrollView>
+            <Container>
+              <Content>
+                <Title>Dependente</Title>
                 <Form ref={formRef} onSubmit={handleSubmit}>
                   <InputRegister
-                    title="Nome completo do dependente"
+                    title="Nome completo do dependente:"
                     placeholder="Ex: Maria da silva Pereira"
                     name="name"
                   />
@@ -135,13 +148,13 @@ function DependentsForm() {
                       withDDD: true,
                       dddMask: '(99)',
                     }}
-                    title="Telefone"
+                    title="Telefone:"
                     placeholder="(99) 99999-9999"
                     keyboardType="numeric"
                     name="phone"
                   />
                   <InputMask
-                    title="CPF"
+                    title="CPF:"
                     type="cpf"
                     placeholder="123.456.789-00"
                     keyboardType="numeric"
@@ -152,7 +165,7 @@ function DependentsForm() {
                     options={{
                       format: 'DD/MM/YYYY',
                     }}
-                    title="Data de nascimento"
+                    title="Data de nascimento:"
                     placeholder="01/01/1990"
                     keyboardType="numeric"
                     name="birth_date"
@@ -160,16 +173,16 @@ function DependentsForm() {
                   <InputSelected
                     selected={selectedNationality}
                     setSelected={setSelectedNationality}
-                    title="Nacionalidade"
+                    title="Nacionalidade:"
                     alternatives={['Brasileiro', 'Naturalizado', 'Estrangeiro']}
                   />
                   <InputRegister
-                    title="Cidade de nascimento"
+                    title="Cidade de nascimento:"
                     placeholder="Ex: Samambaia"
                     name="birth_city"
                   />
                   <Selector
-                    title="UF"
+                    title="UF:"
                     selected={selectedUF}
                     setSelected={setSelectedUF}
                     items={informations.uf}
@@ -178,13 +191,13 @@ function DependentsForm() {
                   <InputSelected
                     selected={selectedGender}
                     setSelected={setSelectedGender}
-                    title="Sexo"
+                    title="Sexo:"
                     alternatives={['Masculino', 'Feminino', 'Outros']}
                   />
                   <InputSelected
                     selected={selectedBreed}
                     setSelected={setselectedBreed}
-                    title="Raça/Cor"
+                    title="Raça/Cor:"
                     alternatives={[
                       'Negro',
                       'Pardo',
@@ -194,12 +207,12 @@ function DependentsForm() {
                     ]}
                   />
                   <InputRegister
-                    title="Nome completo da Mãe"
+                    title="Nome completo da Mãe:"
                     placeholder="Ex: Joana da Silva Pereira"
                     name="mother_name"
                   />
                   <InputRegister
-                    title="Nome completo do Pai"
+                    title="Nome completo do Pai:"
                     placeholder="Ex: João da Silva Pereira"
                     name="father_name"
                   />
@@ -207,9 +220,16 @@ function DependentsForm() {
                 <NextButton onPress={() => formRef.current?.submitForm()}>
                   <TextNextButton>Próximo</TextNextButton>
                 </NextButton>
-              </>
-            ) : (
-              <>
+              </Content>
+            </Container>
+          </ScrollView>
+        </>
+      ) : (
+        <>
+          <Header title="Cadastro" arrow style={{elevation: 3}} />
+          <ScrollView style={{flex: 1}}>
+            <Container>
+              <Content>
                 <Title>Situação de Saúde</Title>
                 {comorbidities &&
                   comorbidities.map((comorbidity) => (
@@ -220,14 +240,15 @@ function DependentsForm() {
                       selected={handleSelected}
                     />
                   ))}
+                <Divider />
                 <NextButton onPress={submitData}>
-                  <TextNextButton>Finalizar</TextNextButton>
+                  <TextNextButton>Próximo</TextNextButton>
                 </NextButton>
-              </>
-            )}
-          </Content>
-        </Container>
-      </ScrollView>
+              </Content>
+            </Container>
+          </ScrollView>
+        </>
+      )}
     </>
   );
 }

@@ -11,7 +11,7 @@ export const Content = styled.View`
   width: 100%;
   border-radius: 16px;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
   position: relative;
 `;
 
@@ -32,7 +32,7 @@ export const NextButton = styled(RectButton)`
   background-color: #04d361;
   border-radius: 8px;
   padding: 12px 0px;
-  margin: 16px 60px 0px;
+  margin: 0px 60px 24px;
   justify-content: center;
   align-items: center;
 `;

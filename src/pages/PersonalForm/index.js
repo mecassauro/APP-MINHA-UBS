@@ -90,14 +90,14 @@ function PersonalForm() {
 
   return (
     <>
+      <Header title="Cadastro" arrow />
       <ScrollView>
         <Container>
-          <Header title="Cadastro" arrow />
           <Content>
             <Title>Dados Pessoais</Title>
             <Form ref={formRef} onSubmit={handleSubmit}>
               <InputRegister
-                title="Nome completo do resposável"
+                title="Nome completo do resposável:"
                 placeholder="Ex: Maria da silva Pereira"
                 name="full_name"
               />
@@ -109,13 +109,13 @@ function PersonalForm() {
                   withDDD: true,
                   dddMask: '(99)',
                 }}
-                title="Telefone"
+                title="Telefone:"
                 placeholder="(99) 99999-9999"
                 keyboardType="numeric"
                 name="phone"
               />
               <InputMask
-                title="CPF"
+                title="CPF:"
                 type="cpf"
                 placeholder="123.456.789-00"
                 keyboardType="numeric"
@@ -126,7 +126,7 @@ function PersonalForm() {
                 options={{
                   format: 'DD/MM/YYYY',
                 }}
-                title="Data de nascimento"
+                title="Data de nascimento:"
                 placeholder="01/01/1990"
                 keyboardType="numeric"
                 name="birth_date"
@@ -134,17 +134,17 @@ function PersonalForm() {
               <InputSelected
                 selected={selectedNationality}
                 setSelected={setSelectedNationality}
-                title="Nacionalidade"
+                title="Nacionalidade:"
                 alternatives={['Brasileiro', 'Naturalizado', 'Estrangeiro']}
               />
               <City>
                 <InputRegister
-                  title="Cidade de nascimento"
+                  title="Cidade de nascimento:"
                   placeholder="Ex: Samambaia"
                   name="birth_city"
                 />
                 <Selector
-                  title="UF"
+                  title="UF:"
                   selected={selectedUF}
                   setSelected={setSelectedUF}
                   items={informations.uf}
@@ -154,13 +154,13 @@ function PersonalForm() {
               <InputSelected
                 selected={selectedGender}
                 setSelected={setSelectedGender}
-                title="Sexo"
+                title="Sexo:"
                 alternatives={['Masculino', 'Feminino', 'Outros']}
               />
               <InputSelected
                 selected={selectedBreed}
                 setSelected={setselectedBreed}
-                title="Raça/Cor"
+                title="Raça/Cor:"
                 alternatives={[
                   'Negro',
                   'Pardo',
@@ -170,12 +170,12 @@ function PersonalForm() {
                 ]}
               />
               <InputRegister
-                title="Nome completo da Mãe"
+                title="Nome completo da Mãe:"
                 placeholder="Ex: Joana da Silva Pereira"
                 name="mother_name"
               />
               <InputRegister
-                title="Nome completo do Pai"
+                title="Nome completo do Pai:"
                 placeholder="Ex: João da Silva Pereira"
                 name="father_name"
               />

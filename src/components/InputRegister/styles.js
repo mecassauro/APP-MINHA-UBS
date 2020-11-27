@@ -17,12 +17,12 @@ export const Title = styled.Text`
 
 export const TextInput = styled.TextInput`
   border-radius: 8px;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
   padding: 0px 16px;
   height: 100%;
   color: #4f4f4f;
 
-  border-width: 2px;
+  border-width: 1px;
   border-color: #dfdfdf;
 
   ${(props) =>

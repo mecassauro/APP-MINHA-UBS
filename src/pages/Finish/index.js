@@ -32,7 +32,10 @@ function Finish() {
             recursos do aplicativo!
           </SubTitle>
         </Content>
-        <RegisterButton onPress={() => navigation.navigate('PersonalForm')}>
+        <RegisterButton
+          onPress={() =>
+            navigation.reset({index: 0, routes: [{name: 'Home'}]})
+          }>
           <TextRegisterButton>OK!</TextRegisterButton>
         </RegisterButton>
       </Wrapper>

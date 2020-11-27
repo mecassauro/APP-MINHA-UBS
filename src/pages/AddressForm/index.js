@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect, useRef} from 'react';
-import {StatusBar, ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import geolocation from '@react-native-community/geolocation';
@@ -40,8 +40,6 @@ function AddressForm() {
   const {alert, close} = useAlert();
 
   useEffect(() => {
-    console.log(healthFormData);
-
     geolocation.getCurrentPosition(
       ({coords}) => {
         console.log(coords);
@@ -119,9 +117,9 @@ function AddressForm() {
         });
 
         if (data.quantity_per_home) {
-          navigation.navigate('Dependents');
+          navigation.reset({index: 0, routes: [{name: 'Dependents'}]});
         } else {
-          navigation.navigate('Finish');
+          navigation.reset({index: 0, routes: [{name: 'Finish'}]});
         }
       } catch (err) {
         if (err instanceof ValidationError) {
@@ -152,15 +150,15 @@ function AddressForm() {
 
   return (
     <>
+      <Header title="Cadastro" arrow />
       <ScrollView>
         <Container>
-          <Header title="Cadastro" arrow />
           <Content>
             <Title>Endereço</Title>
             <Form ref={formRef} onSubmit={handleSubmit}>
               <InputMask
                 type={'zip-code'}
-                title="CEP"
+                title="CEP:"
                 placeholder="Ex: 00000-000"
                 keyboardType="numeric"
                 name="zip_code"
@@ -169,27 +167,27 @@ function AddressForm() {
 
               <City>
                 <InputRegister
-                  title="Cidade"
+                  title="Cidade:"
                   placeholder="Ex: Brasília"
                   name="city"
                 />
                 <InputRegister
-                  title="Bairro"
+                  title="Bairro:"
                   placeholder="Ex: Asa Norte"
                   name="neighborhood"
                 />
                 <InputRegister
-                  title="Endereço"
+                  title="Endereço:"
                   placeholder="Ex: SGAN 906"
                   name="street"
                 />
                 <InputRegister
-                  title="Casa"
+                  title="Casa:"
                   placeholder="Ex: Casa 10"
                   name="house_number"
                 />
                 <Selector
-                  title="UF"
+                  title="UF:"
                   selected={selectedUF}
                   setSelected={setSelectedUF}
                   items={informations.uf}
@@ -198,7 +196,7 @@ function AddressForm() {
               <InputSelected
                 selected={homeStatus}
                 setSelected={setHomeStatus}
-                title="Situação de moradia"
+                title="Situação de moradia:"
                 alternatives={[
                   'Própria',
                   'Finaciado',

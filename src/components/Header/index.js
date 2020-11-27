@@ -5,12 +5,12 @@ import {useAuth} from '../../hooks/auth';
 
 import {Container, Title, Arrow, Log} from './styles';
 
-function Header({title, logout, arrow, back}) {
+function Header({title, logout, arrow, ...rest}) {
   const {signOut} = useAuth();
   const navigation = useNavigation();
 
   return (
-    <Container colors={['#0C1EBB', '#285FF0']}>
+    <Container {...rest} colors={['#0C1EBB', '#285FF0']}>
       {arrow && <Arrow onPress={() => navigation.goBack()} />}
       <Title>{title}</Title>
       {logout && <Log onPress={() => signOut()} />}

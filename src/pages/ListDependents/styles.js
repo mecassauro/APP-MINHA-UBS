@@ -6,8 +6,7 @@ export const Container = styled.View`
 `;
 export const Item = styled.View`
   padding: 24px 16px;
-  margin: 0 8px;
-  margin-top: 10px;
+  margin: 10px 8px;
   background-color: #fff;
   border-radius: 8px;
   flex-direction: row;

@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-
+import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useAlert} from '../../hooks/alert';
 
@@ -25,7 +25,15 @@ function ListDependents() {
 
   const submitList = useCallback(async () => {
     alert({title: 'loading', type: 'loading'});
-    await submitAllDependents();
+    try {
+      await submitAllDependents();
+    } catch (error) {
+      close();
+      alert({
+        title: 'Erro ao fazer cadastro da ficha',
+        message: error.response.data.error,
+      });
+    }
     close();
     navigation.reset({
       index: 0,
@@ -36,13 +44,14 @@ function ListDependents() {
   return (
     <Container>
       <Header title="cadastro" />
-      {allDependents.map((dependents, index) => (
-        <Item key={dependents.name} style={{elevation: 3}}>
-          <Title>{`${index + 1}. ${dependents.name}`}</Title>
-          <Trash onPress={() => removeList(dependents.name)} />
-        </Item>
-      ))}
-
+      <ScrollView style={{flex: 1}}>
+        {allDependents.map((dependents, index) => (
+          <Item key={dependents.name} style={{elevation: 3}}>
+            <Title>{`${index + 1}. ${dependents.name}`}</Title>
+            <Trash onPress={() => removeList(dependents.name)} />
+          </Item>
+        ))}
+      </ScrollView>
       <ButtonArea>
         <FinishButton onPress={submitList}>
           <TextFinishButton>Finalizar</TextFinishButton>

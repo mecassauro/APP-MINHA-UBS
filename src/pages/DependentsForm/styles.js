@@ -11,6 +11,11 @@ export const HeaderWrapper = styled.View`
   margin-bottom: 16px;
 `;
 
+export const Divider = styled.View`
+  background-color: #dfdfdf;
+  height: 1px;
+  margin-top: 12px;
+`;
 export const HeaderTitle = styled.Text`
   font-size: 36px;
   color: #eff3f9;

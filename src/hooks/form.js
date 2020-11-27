@@ -9,7 +9,6 @@ function FormProvider({children}) {
   const [healthFormData, setHealthFormData] = useState([]);
   const [addressForm, setAddressForm] = useState({});
   const [allDependents, setAllDependents] = useState([]);
-
   const {user} = useAuth();
 
   const handleSubmitPersonalForm = useCallback(

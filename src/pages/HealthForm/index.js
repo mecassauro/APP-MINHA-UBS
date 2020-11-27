@@ -28,10 +28,6 @@ function HealthForm() {
     async function loadData() {
       // alert({title: 'loading', type: 'loading'});
       const response = await api.get('comorbidities');
-      const list = response.data;
-
-      const filteredList = response.data.filter((item) => item.question);
-
       setComorbidities(response.data);
       // close();
     }
@@ -44,12 +40,11 @@ function HealthForm() {
     },
     [handleSubmitHealthForm],
   );
-
   return (
     <>
+      <Header title="Cadastro" arrow style={{elevation: 3}} />
       <ScrollView style={{flex: 1}}>
         <Container>
-          <Header title="Cadastro" arrow />
           <Content>
             <Title>Situação de Saúde</Title>
             {comorbidities &&
@@ -62,10 +57,10 @@ function HealthForm() {
                 />
               ))}
             <Divider />
-            <NextButton onPress={() => navigation.navigate('AddressForm')}>
-              <TextNextButton>Próximo</TextNextButton>
-            </NextButton>
           </Content>
+          <NextButton onPress={() => navigation.navigate('AddressForm')}>
+            <TextNextButton>Próximo</TextNextButton>
+          </NextButton>
         </Container>
       </ScrollView>
     </>

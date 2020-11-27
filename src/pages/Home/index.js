@@ -29,7 +29,7 @@ import {
 import api from '../../services/api';
 
 function Home() {
-  const {signOut, user} = useAuth();
+  const {user} = useAuth();
   const [register, setRegister] = useState({});
   const [notification, setNotification] = useState([]);
   const navigation = useNavigation();
