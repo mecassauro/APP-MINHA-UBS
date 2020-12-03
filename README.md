@@ -1,5 +1,8 @@
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=simaps-ubs_simaps-app&metric=coverage)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=mecassauro_RADAR-frontend&metric=bugs)](https://sonarcloud.io/dashboard?id=mecassauro_RADAR-frontend)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=simaps-ubs_simaps-app&metric=alert_status)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mecassauro_RADAR-frontend&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=mecassauro_RADAR-frontend)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=simaps-ubs_simaps-app&metric=coverage)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=simaps-ubs_simaps-app&metric=bugs)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=simaps-ubs_simaps-app&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=simaps-ubs_simaps-app&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=simaps-ubs_simaps-app&metric=ncloc)](https://sonarcloud.io/dashboard?id=simaps-ubs_simaps-app)
 [![Build Status](https://travis-ci.org/simaps-ubs/simaps-app.svg?branch=master)](https://travis-ci.org/simaps-ubs/simaps-app)
 
 # SiMAPS Aplicativo
