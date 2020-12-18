@@ -1,6 +1,8 @@
 import React, {useState, useCallback, useRef} from 'react';
 import {ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import CheckBox from '@react-native-community/checkbox';
+
 import {Form} from '@unform/mobile';
 import * as Yup from 'yup';
 import {ValidationError} from 'yup';
@@ -23,6 +25,8 @@ import {
   City,
   NextButton,
   TextNextButton,
+  CheckBoxItem,
+  CheckBoxTitle,
 } from './styles';
 
 function PersonalForm() {
@@ -30,6 +34,10 @@ function PersonalForm() {
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedBreed, setselectedBreed] = useState('');
   const [selectedUF, setSelectedUF] = useState('');
+  const [studant, setStudant] = useState(false);
+  const [deficient, setDeficient] = useState(false);
+  const [pregnant, setPregnant] = useState(false);
+  const [interned, setInterned] = useState(false);
 
   const navigation = useNavigation();
   const formRef = useRef();
@@ -63,6 +71,10 @@ function PersonalForm() {
           nationality: selectedNationality,
           breed: selectedBreed,
           birth_state: selectedUF,
+          studant,
+          deficient,
+          pregnant,
+          interned,
         });
 
         navigation.navigate('HealthForm');
@@ -84,6 +96,10 @@ function PersonalForm() {
       selectedBreed,
       selectedNationality,
       selectedUF,
+      studant,
+      deficient,
+      pregnant,
+      interned,
     ],
   );
 
@@ -178,6 +194,44 @@ function PersonalForm() {
                 placeholder="Ex: João da Silva Pereira"
                 name="father_name"
               />
+              <CheckBoxItem>
+                <CheckBox
+                  disabled={false}
+                  value={studant}
+                  onChange={() => setStudant((value) => !value)}
+                  tintColors={{true: '#04d361'}}
+                />
+                <CheckBoxTitle>Frequenta escola ou creche?</CheckBoxTitle>
+              </CheckBoxItem>
+              <CheckBoxItem>
+                <CheckBox
+                  disabled={false}
+                  value={deficient}
+                  onChange={() => setDeficient((value) => !value)}
+                  tintColors={{true: '#04d361'}}
+                />
+                <CheckBoxTitle>Tem alguma deficiência?</CheckBoxTitle>
+              </CheckBoxItem>
+              <CheckBoxItem>
+                <CheckBox
+                  disabled={false}
+                  value={pregnant}
+                  onChange={() => setPregnant((value) => !value)}
+                  tintColors={{true: '#04d361'}}
+                />
+                <CheckBoxTitle>Está gestante?</CheckBoxTitle>
+              </CheckBoxItem>
+              <CheckBoxItem>
+                <CheckBox
+                  disabled={false}
+                  value={interned}
+                  onChange={() => setInterned((value) => !value)}
+                  tintColors={{true: '#04d361'}}
+                />
+                <CheckBoxTitle>
+                  Teve alguma internação nos últimos 12 meses?
+                </CheckBoxTitle>
+              </CheckBoxItem>
             </Form>
             <NextButton onPress={() => formRef.current?.submitForm()}>
               <TextNextButton>Próximo</TextNextButton>

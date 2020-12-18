@@ -57,7 +57,16 @@ function SignUp() {
         alert({title: 'loading', type: 'loading'});
         await api.post('users', data);
         close();
-        navigation.goBack();
+
+        alert({
+          title: 'Sucesso',
+          type: 'success',
+          message: 'Cadastro realizado com sucesso!',
+        });
+        setTimeout(() => {
+          close();
+          navigation.goBack();
+        }, 3000);
       } catch (err) {
         if (err instanceof ValidationError) {
           const erros = getValidationError(err);

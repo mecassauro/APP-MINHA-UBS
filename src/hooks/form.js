@@ -37,20 +37,20 @@ function FormProvider({children}) {
     setAddressForm(data);
   }, []);
 
-  const handleSubmitData = useCallback(
-    async (data) => {
-      const formData = {
-        user_id: user.id,
-        ...personalFormData,
-        ...addressForm,
-        ...data,
-        comorbidities: healthFormData,
-      };
-      const response = await api.post('/forms', formData);
-      console.log(response.data);
-    },
-    [addressForm, personalFormData, healthFormData, user],
-  );
+  const handleSubmitData = useCallback(async () => {
+    const formData = {
+      user_id: user.id,
+      ...personalFormData,
+      ...addressForm,
+      comorbidities: healthFormData,
+    };
+
+    try {
+      await api.post('/forms', formData);
+    } catch (err) {
+      console.log(err.response.data.error);
+    }
+  }, [addressForm, personalFormData, healthFormData, user]);
 
   const addList = useCallback(
     async (data) => {

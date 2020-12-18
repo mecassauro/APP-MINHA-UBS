@@ -1,4 +1,5 @@
 import {RectButton} from 'react-native-gesture-handler';
+
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -49,4 +50,12 @@ export const NextButton = styled(RectButton)`
 export const TextNextButton = styled.Text`
   color: #eff3f9;
   font-size: 16px;
+`;
+
+export const CheckBoxItem = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+export const CheckBoxTitle = styled.Text`
+  color: #7a7a7a;
 `;

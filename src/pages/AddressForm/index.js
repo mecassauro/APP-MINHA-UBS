@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect, useRef} from 'react';
-import {ScrollView} from 'react-native';
+import {PermissionsAndroid, ScrollView, Alert} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import geolocation from '@react-native-community/geolocation';
@@ -33,24 +33,62 @@ import {
 function AddressForm() {
   const [homeStatus, setHomeStatus] = useState('');
   const [selectedUF, setSelectedUF] = useState('');
+  const [locationPermission, setLocationPermission] = useState(false);
   const [coord, setCoord] = useState({});
   const navigation = useNavigation();
   const formRef = useRef();
-  const {handleSubmitAddressForm, healthFormData, handleSubmitData} = useForm();
+  const {handleSubmitAddressForm, handleSubmitData} = useForm();
   const {alert, close} = useAlert();
 
+  const verifyLocationPermission = useCallback(async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Minha UBS app permissão',
+          message: 'Minha UBS App precisa acessar sua localização',
+          buttonNegative: 'Cancelar',
+          buttonPositive: 'Permitir',
+        },
+      );
+
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Permissão concedida');
+        setLocationPermission(true);
+      } else {
+        console.log('Permissão NÃO concedida');
+        setLocationPermission(false);
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }, []);
+
+  const getLocation = useCallback(() => {
+    if (locationPermission) {
+      try {
+        geolocation.getCurrentPosition(
+          ({coords}) => {
+            console.log(coords);
+            setCoord(coords);
+          },
+          (err) => {
+            console.log(err.message);
+          },
+          {enableHighAccuracy: true, timeout: 120000, maximumAge: 1000},
+        );
+      } catch (err) {
+        console.log('Tentando prosseguir sem permissão');
+        console.log(err);
+      }
+    }
+  }, [locationPermission]);
+
   useEffect(() => {
-    geolocation.getCurrentPosition(
-      ({coords}) => {
-        console.log(coords);
-        setCoord(coords);
-      },
-      (err) => {
-        console.log(err.message);
-      },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
-    );
-  }, [healthFormData]);
+    verifyLocationPermission();
+    setTimeout(() => {}, 5000);
+    getLocation();
+  }, [getLocation, verifyLocationPermission]);
 
   const handleRequestCEP = useCallback(
     async (code) => {
@@ -91,9 +129,26 @@ function AddressForm() {
         await schema.validate(data, {
           abortEarly: false,
         });
-        console.log('HI');
 
         // TODO: Salvar no contexto e enviar para a home
+
+        if (!coord.latitude && !coord.longitude) {
+          Alert.alert(
+            'Acesso ao GPS',
+            'O aplicativo precisa da sua permissão para continuar.',
+            [
+              {
+                text: 'Ok',
+                onPress: () => {
+                  verifyLocationPermission();
+                  getLocation();
+                },
+              },
+            ],
+          );
+          throw Error({message: 'Coordenadas não informadas'});
+        }
+
         handleSubmitAddressForm({
           ...data,
           quantity_per_home: data.quantity_per_home
@@ -105,16 +160,8 @@ function AddressForm() {
           lng: coord.longitude.toString(),
         });
 
-        await handleSubmitData({
-          ...data,
-          quantity_per_home: data.quantity_per_home
-            ? Number(data.quantity_per_home)
-            : 0,
-          home_situation: homeStatus,
-          state: selectedUF,
-          lat: coord.latitude.toString(),
-          lng: coord.longitude.toString(),
-        });
+        await handleSubmitData();
+        console.log('FUNCIONOU');
 
         if (data.quantity_per_home) {
           navigation.reset({index: 0, routes: [{name: 'Dependents'}]});
@@ -145,6 +192,8 @@ function AddressForm() {
       handleSubmitData,
       alert,
       close,
+      verifyLocationPermission,
+      getLocation,
     ],
   );
 
